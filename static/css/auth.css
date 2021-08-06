@@ -3,9 +3,10 @@
 }
 
 .ah-container {
-  height: 100%;
+  height: 100vh;
   width: 100%;
   display: flex;
+
   justify-content: center;
   align-items: center;
 }
@@ -19,8 +20,13 @@
   flex-direction: column;
   align-items: stretch;
 }
-.ah-form > h3 {
-  margin-bottom: 40px;
+
+.ah-title {
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+.ah-form > h4 {
+  margin-bottom: 20px;
 }
 .ah-form > input {
   margin-bottom: 15px;
@@ -29,30 +35,29 @@
   margin-top: 20px;
 }
 
-input {
-  appearance: none;
-  border: none;
-  padding: 5px 10px;
-  border: 1px solid #dfdfdf;
-}
-
-input:focus {
-  outline: none;
-}
-
-button {
-  background-color: black;
-  padding: 10px 10px;
-  color: white;
-}
-
-.ah-tip {
+.ah-tools {
   margin-top: 20px;
   display: flex;
   justify-content: center;
   font-size: 0.8rem;
 }
 
-.ah-tip > div {
+.ah-form-input {
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  outline: none;
+}
+
+.ah-form-btn {
+  padding: 10px;
+}
+
+.ah-tools > div {
   padding: 5px;
+}
+
+.ah-alert {
+  color: red;
+  font-size: 0.8rem;
 }

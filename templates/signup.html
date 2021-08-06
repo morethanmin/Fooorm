@@ -1,15 +1,21 @@
 {% extends 'base.html' %} {% load static %} {% block css %}
 <link rel="stylesheet" href="{% static 'css/auth.css' %}?" />
 {% endblock %} {% block script %}
-<script src="{% static 'javascript/auth.js'%}"></script>
 {% endblock %} {% block content %}
 <div class="ah-container">
   <form class="ah-form" method="POST" action="{% url 'signup' %}">
     {% csrf_token %}
-    <h3>회원가입</h3>
-    <input type="email" placeholder="이메일" required></input>
-    <input type="password" placeholder="비밀번호" required></input>
-    <button class="btn">회원가입</button>
+    <h2 class="ah-title">회원가입</h2>
+    <h4>Fooorms를 무료로 시작하세요.</h4>
+    <input class="ah-form-input" type="text" value="{{username}}" name="username" placeholder="아이디" required />
+    <input class="ah-form-input" type="email" value="{{email}}" name="email" placeholder="이메일" required></input>
+    <input class="ah-form-input" type="password"  name="password" placeholder="비밀번호" required></input>
+    <input class="ah-form-input" type="password"  name="passwordConfirm" placeholder="비밀번호 확인" required></input>
+    <div class="ah-alert">{{message}}</div>
+    <button class="ah-form-btn btn">회원가입</button>
+    <div class="ah-tools">
+      <div><a class="" href="{% url 'login' %}">로그인으로 돌아가기</a></div>
+    </div>
   </form>
 </div>
 {% endblock %}
