@@ -28,7 +28,7 @@ def login(request) :
 
 def logout(request) :
   auth.logout(request)
-  return render(request, 'login.html')
+  return HttpResponseRedirect(reverse('home'))
 
 def signup(request) :
   if request.user.is_authenticated:
@@ -75,15 +75,16 @@ def signup(request) :
 def forms(request) :
   if not request.user.is_authenticated:
     return HttpResponseRedirect(reverse('login'))
-  forms = FormModel.objects.filter(creator = request.user)
+  forms = FormModel.objects.filter(creator = request.user).order_by('-created_at')
+
 
   
   return render(request, 'forms/index.html',{"forms": forms})
 
-def form(request,key) :
+def form_view(request,key) :
   form = FormModel.objects.filter(key = key)
 
-  return render(request, 'forms/_key/edit.html',{"form": form})
+  return render(request, '_user/form.html',{"form": form})
 
 def form_add(request) :
   if not request.user.is_authenticated:
@@ -91,25 +92,30 @@ def form_add(request) :
   if request.method == "POST":
     data = json.loads(request.body)
     name = data["name"]
+    title = data["title"]
     key = ''.join(random.choice(string.ascii_letters + string.digits) for x in range(20))
     choices = ChoicesModel(choice = "Option 1")
     choices.save()
-    question = QuestionsModel(question_type = "multiple", question_name= "새로운 질문", required= False)
+    question = QuestionsModel(name= "새로운 질문", type = "radio", required= False)
     question.save()
     question.choices.add(choices)
     question.save()
-    form = FormModel(key = key, name = name, creator=request.user)
+    form = FormModel(key = key, name = name, title = title, creator=request.user)
     form.save()
     form.questions.add(question)
     form.save()
     return JsonResponse({"message": "Sucess", "key": key})
 
 def form_edit(request,key) :
+  if not request.user.is_authenticated:
+    return HttpResponseRedirect(reverse('login'))
   form = FormModel.objects.filter(key = key)
 
   return render(request, 'forms/_key/edit.html',{"menu": "edit", "form": form[0]})
 
 def form_responses(request ,key) :
+  if not request.user.is_authenticated:
+    return HttpResponseRedirect(reverse('login'))
   form = FormModel.objects.filter(key = key)
 
   return render(request, 'forms/_key/responses.html', {"menu": "responses", "form": form[0]})

@@ -8,6 +8,7 @@ $(function () {
       headers: { 'X-CSRFToken': csrftoken },
       body: JSON.stringify({
         name: '새로운 설문지',
+        title: '새로운 설문지 제목',
       }),
     })
       .then((response) => response.json())

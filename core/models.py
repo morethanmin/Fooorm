@@ -9,8 +9,8 @@ class Choices(models.Model):
     is_answer = models.BooleanField(default=False)
 
 class Questions(models.Model):
-    question_name = models.CharField(max_length= 10000)
-    question_type = models.CharField(max_length=20)
+    name = models.CharField(max_length= 10000)
+    type = models.CharField(max_length=20)
     required = models.BooleanField(default= False)
     answer_key = models.CharField(max_length = 5000, blank = True)
     score = models.IntegerField(blank = True, default=0)
@@ -33,8 +33,8 @@ class Form(models.Model):
     confirmation_message = models.CharField(max_length = 10000, default = "Your response has been recorded.")
     is_quiz = models.BooleanField(default=False)
     allow_view_score = models.BooleanField(default= True)
-    createdAt = models.DateTimeField(auto_now_add = True)
-    updatedAt = models.DateTimeField(auto_now = True)
+    created_at = models.DateTimeField(auto_now_add = True)
+    updated_at = models.DateTimeField(auto_now = True)
     questions = models.ManyToManyField(Questions, related_name = "questions")
 
 class Responses(models.Model):

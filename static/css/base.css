@@ -34,6 +34,22 @@ button {
   border: none;
 }
 
+input {
+  border: none;
+}
+
+input:focus {
+  outline: none;
+}
+
+textarea {
+  border: none;
+}
+
+textarea:focus {
+  outline: none;
+}
+
 /* common */
 .container {
   max-width: 1200px;
