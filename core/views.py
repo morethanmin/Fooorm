@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib import auth
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
-from .models import User as UserModel, Choices as ChoicesModel, Questions as QuestionsModel, Answer, Form, Responses
+from .models import User as UserModel, Choices as ChoicesModel, Questions as QuestionsModel, Answer, Form as FormModel, Responses
 import json
 import random
 import string
@@ -75,21 +75,22 @@ def signup(request) :
 def forms(request) :
   if not request.user.is_authenticated:
     return HttpResponseRedirect(reverse('login'))
-  forms = Form.objects.filter(creator = request.user)
+  forms = FormModel.objects.filter(creator = request.user)
 
   
   return render(request, 'forms/index.html',{"forms": forms})
 
-def form(request) :
+def form(request,key) :
+  form = FormModel.objects.filter(key = key)
 
-  return render(request, 'forms/_key/index.html')
+  return render(request, 'forms/_key/edit.html',{"form": form})
 
 def form_add(request) :
   if not request.user.is_authenticated:
     return HttpResponseRedirect(reverse('login'))
   if request.method == "POST":
     data = json.loads(request.body)
-    title = data["title"]
+    name = data["name"]
     key = ''.join(random.choice(string.ascii_letters + string.digits) for x in range(20))
     choices = ChoicesModel(choice = "Option 1")
     choices.save()
@@ -97,16 +98,18 @@ def form_add(request) :
     question.save()
     question.choices.add(choices)
     question.save()
-    form = Form(key = key, title = title, creator=request.user)
+    form = FormModel(key = key, name = name, creator=request.user)
     form.save()
     form.questions.add(question)
     form.save()
     return JsonResponse({"message": "Sucess", "key": key})
 
 def form_edit(request,key) :
+  form = FormModel.objects.filter(key = key)
 
-  return render(request, 'forms/_key/edit.html')
+  return render(request, 'forms/_key/edit.html',{"menu": "edit", "form": form[0]})
 
-def responses(request) :
+def form_responses(request ,key) :
+  form = FormModel.objects.filter(key = key)
 
-  return render(request, 'forms/_key/responses.html')
+  return render(request, 'forms/_key/responses.html', {"menu": "responses", "form": form[0]})

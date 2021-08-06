@@ -10,5 +10,5 @@ urlpatterns = [
     path('forms/add', views.form_add, name="form_add"),
     path('forms/<str:key>', views.form, name="form"),
     path('forms/<str:key>/edit', views.form_edit, name="form_edit"),
-    path('forms/<str:key>/responses', views.responses, name="responses"),
+    path('forms/<str:key>/responses', views.form_responses, name="form_responses"),
 ]

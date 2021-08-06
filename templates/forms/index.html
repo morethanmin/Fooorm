@@ -1,23 +1,23 @@
 {% extends 'base.html' %} {% load static %} {% block css %}
-<link rel="stylesheet" href="{% static 'css/forms.css' %}?4" />
+<link rel="stylesheet" href="{% static 'css/forms.css' %}?5" />
 {% endblock %} {% block script %}
 <script src="{% static 'javascript/forms.js'%}?"></script>
 
 {% endblock %} {% block content %}
 <div class="fs-container">
-  <header class="bs-header container">
-    <a href="{% url 'home' %}" class="bs-header-left">
-      <div class="bs-header-left-logo"><i class="fas fa-list"></i></div>
-      <div class="bs-header-left-title">Fooorms</div>
+  <header class="fs-header container">
+    <a href="{% url 'home' %}" class="fs-header-left">
+      <div class="fs-header-left-logo"><i class="fas fa-list"></i></div>
+      <div class="fs-header-left-title">Fooorms</div>
     </a>
-    <div class="bs-header-right">
-      <a href="{% url 'logout' %}" class="btn btn-light bs-user">{{user.username|first}}</a>
+    <div class="fs-header-right">
+      <a href="{% url 'logout' %}" class="btn btn-light fs-user">{{user.username|first}}</a>
     </div>
   </header>
 
   <div class="fs-main">
     {% comment %}
-    <div class="fs-header">
+    <div class="fs-main-header">
       <div class="fs-header-container container">
         <div class="fs-title">새 양식 시작하기</div>
         <div>
@@ -39,7 +39,7 @@
         </div>
         {% for item in forms %}
         <a href="{% url 'form_edit' key=item.key %}" class="fs-table-row">
-          <div class="fs-table-row-title">{{item.title}}</div>
+          <div class="fs-table-row-title">{{item.name}}</div>
           <div>{{item.createdAt}}</div>
           <div>{{item.updatedAt}}</div>
           <div class="fs-table-menu"><i class="fas fa-ellipsis-v"></i></div>

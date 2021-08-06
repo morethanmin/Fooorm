@@ -23,6 +23,7 @@ class Answer(models.Model):
 
 class Form(models.Model):
     key = models.CharField(max_length=30)
+    name = models.CharField(max_length=200)
     title = models.CharField(max_length=200)
     description = models.CharField(max_length=10000, blank = True)
     creator = models.ForeignKey(User, on_delete = models.CASCADE, related_name = "creator")

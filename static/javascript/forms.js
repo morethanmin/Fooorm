@@ -7,7 +7,7 @@ $(function () {
       method: 'POST',
       headers: { 'X-CSRFToken': csrftoken },
       body: JSON.stringify({
-        title: '새로운 설문지',
+        name: '새로운 설문지',
       }),
     })
       .then((response) => response.json())

@@ -1,39 +1,39 @@
 /* header */
-.bs-header {
+.fs-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 70px;
 }
 
-.bs-header-left {
+.fs-header-left {
   display: flex;
   align-items: center;
 }
 
-.bs-header-left > * {
+.fs-header-left > * {
   margin-right: 10px;
 }
 
-.bs-header-left-logo {
+.fs-header-left-logo {
   background: #7248b9;
   padding: 7px 10px;
-  color: white;
+  color: white !important;
   border-radius: 10px;
 }
 
-.bs-header-left-title {
+.fs-header-left-title {
   font-size: 1.2rem;
   color: #5f6368;
   font-weight: 400;
 }
 
-.bs-header-right {
+.fs-header-right {
   display: flex;
   align-items: center;
 }
 
-.bs-user {
+.fs-user {
   border-radius: 50%;
   font-weight: 500;
   background-color: #7248b9;
@@ -51,7 +51,7 @@
   height: 100vh;
 }
 
-.fs-header {
+.fs-main-header {
   /* flex */
   display: flex;
   align-items: center;
@@ -103,9 +103,17 @@
 .fs-table-row {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr auto;
-  padding: 20px;
+  border-radius: 30px;
 }
+.fs-table-header {
+  padding: 10px 20px;
+  margin: 10px 0px;
+  background-color: #7248b9;
+  color: white;
+}
+
 .fs-table-row {
+  padding: 20px;
   font-weight: 300;
 }
 .fs-table-row-title {
@@ -113,7 +121,6 @@
 }
 .fs-table-row:hover {
   background-color: #f3e8fd;
-  border-radius: 30px;
 }
 
 .fs-table-menu {
