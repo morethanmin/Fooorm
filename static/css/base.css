@@ -50,6 +50,10 @@ textarea:focus {
   outline: none;
 }
 
+select:focus {
+  outline: none;
+}
+
 /* common */
 .container {
   max-width: 1200px;

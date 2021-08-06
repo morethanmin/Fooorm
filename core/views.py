@@ -46,11 +46,11 @@ def signup(request) :
       return render(request, "signup.html", {
           "message": "특수문자를 사용할 수 없습니다."
     })
-    if len(UserModel.objects.filter(username="username"))==1:
+    if len(UserModel.objects.filter(username=username))==1:
       return render(request, "signup.html", {
           "message": "이미 존재하는 아이디입니다."
     })
-    if len(UserModel.objects.filter(email="email"))==1:
+    if len(UserModel.objects.filter(email=email))==1:
       return render(request, "signup.html", {
           "message": "이미 존재하는 이메일입니다."
     })

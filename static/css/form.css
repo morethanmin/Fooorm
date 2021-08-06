@@ -44,9 +44,15 @@
 }
 
 .fm-user {
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   font-weight: 500;
   background-color: #7248b9;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .fm-header-bottom {
