@@ -1,0 +1,18 @@
+{% extends 'base.html' %} {% load static %} {% block css %}
+<link rel="stylesheet" href="{% static 'css/forms.css' %}?" />
+{% endblock %} {% block script %}
+<script src="{% static 'javascript/forms.js'%}"></script>
+{% endblock %} {% block content %} {% include "@partials/forms/header.html" %}
+<main class="fs-main">
+  <div class="fs-header">
+    <div class="fs-header-container container">
+      <div>새 양식 시작하기</div>
+      <div>contents</div>
+    </div>
+  </div>
+  <div class="fs-forms container">
+    <div>최근 설문지</div>
+    <div>contents</div>
+  </div>
+</main>
+{% endblock %}

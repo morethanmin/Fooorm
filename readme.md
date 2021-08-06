@@ -16,11 +16,12 @@ jquery django sqlite swiper bootstrap5
 
 ## Features
 
--
-
 ## 개발할 기능
 
--
+- 문항 모델 (제목, 타입(), 타입에 따른 content)
+- 생성된 문항을 볼 수 있는 사용자 폼 (문항, 연락처 기입후 확인 누르면 제출)
+- 문항을 생성, 수정, 삭제, 볼수 있는 관리자 폼
+  - 관리자 폼 (문항별 응답자 수, 선택지별 응답 비율, 응답자별 문항 응답)
 
 ## Tech and libraries
 

@@ -1,0 +1,58 @@
+* {
+  font-weight: 300;
+}
+
+.ah-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ah-form {
+  max-width: 480px;
+  width: 100%;
+  border: 1px solid #dfdfdf;
+  padding: 35px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+.ah-form > h3 {
+  margin-bottom: 40px;
+}
+.ah-form > input {
+  margin-bottom: 15px;
+}
+.ah-form > button {
+  margin-top: 20px;
+}
+
+input {
+  appearance: none;
+  border: none;
+  padding: 5px 10px;
+  border: 1px solid #dfdfdf;
+}
+
+input:focus {
+  outline: none;
+}
+
+button {
+  background-color: black;
+  padding: 10px 10px;
+  color: white;
+}
+
+.ah-tip {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  font-size: 0.8rem;
+}
+
+.ah-tip > div {
+  padding: 5px;
+}

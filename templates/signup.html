@@ -1,0 +1,15 @@
+{% extends 'base.html' %} {% load static %} {% block css %}
+<link rel="stylesheet" href="{% static 'css/auth.css' %}?" />
+{% endblock %} {% block script %}
+<script src="{% static 'javascript/auth.js'%}"></script>
+{% endblock %} {% block content %}
+<div class="ah-container">
+  <form class="ah-form" method="POST" action="{% url 'signup' %}">
+    {% csrf_token %}
+    <h3>회원가입</h3>
+    <input type="email" placeholder="이메일" required></input>
+    <input type="password" placeholder="비밀번호" required></input>
+    <button class="btn">회원가입</button>
+  </form>
+</div>
+{% endblock %}

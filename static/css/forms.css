@@ -1,0 +1,22 @@
+.fs-main {
+  width: 100%;
+}
+
+.fs-header {
+  /* flex */
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  background-color: #f1f3f4;
+  height: auto;
+}
+
+.fs-header-container {
+  padding-top: 20px;
+  padding-bottom: 30px;
+}
+
+.fs-forms {
+  margin-top: 20px;
+}
