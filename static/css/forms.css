@@ -1,5 +1,54 @@
+/* header */
+.bs-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+}
+
+.bs-header-left {
+  display: flex;
+  align-items: center;
+}
+
+.bs-header-left > * {
+  margin-right: 10px;
+}
+
+.bs-header-left-logo {
+  background: #7248b9;
+  padding: 7px 10px;
+  color: white;
+  border-radius: 10px;
+}
+
+.bs-header-left-title {
+  font-size: 1.2rem;
+  color: #5f6368;
+  font-weight: 400;
+}
+
+.bs-header-right {
+  display: flex;
+  align-items: center;
+}
+
+.bs-user {
+  border-radius: 50%;
+  font-weight: 500;
+  background-color: #7248b9;
+}
+
+/* fs-main */
+
 .fs-main {
+  position: relative;
   width: 100%;
+}
+.fs-container {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100vh;
 }
 
 .fs-header {
@@ -18,5 +67,55 @@
 }
 
 .fs-forms {
-  margin-top: 20px;
+  padding-top: 20px;
+  height: 100%;
+  position: relative;
+}
+
+.fs-title {
+  font-weight: 400;
+  color: #202124;
+}
+
+.fs-tools {
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #7248b9;
+  color: white !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* fa-table */
+
+.fs-table {
+  margin: auto 0;
+}
+
+.fs-table-header,
+.fs-table-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr auto;
+  padding: 20px;
+}
+.fs-table-row {
+  font-weight: 300;
+}
+.fs-table-row-title {
+  font-weight: 400;
+}
+.fs-table-row:hover {
+  background-color: #f3e8fd;
+  border-radius: 30px;
+}
+
+.fs-table-menu {
+  text-align: end;
 }

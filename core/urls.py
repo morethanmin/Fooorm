@@ -7,7 +7,8 @@ urlpatterns = [
     path('logout/', views.logout, name="logout"),
     path('siginup/', views.signup, name="signup"),
     path('forms/', views.forms, name="forms"),
-    path('forms/<int:pk>', views.form, name="form"),
-    path('forms/<int:pk>/edit', views.edit, name="edit"),
-    path('forms/<int:pk>/responses', views.responses, name="responses"),
+    path('forms/add', views.form_add, name="form_add"),
+    path('forms/<str:key>', views.form, name="form"),
+    path('forms/<str:key>/edit', views.form_edit, name="form_edit"),
+    path('forms/<str:key>/responses', views.responses, name="responses"),
 ]

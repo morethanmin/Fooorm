@@ -1,5 +1,5 @@
 {% extends 'base.html' %} {% load static %} {% block css %}
-<link rel="stylesheet" href="{% static 'css/forms.css' %}?4" />
+<link rel="stylesheet" href="{% static 'css/forms.css' %}?3" />
 {% endblock %} {% block script %}
 <script src="{% static 'javascript/forms.js'%}?"></script>
 
@@ -27,23 +27,17 @@
     </div>
     {% endcomment %}
     <div class="fs-forms container">
-      {% comment %}
       <div class="fs-title">나의 설문 조사</div>
-      {% endcomment %}
       <div class="fs-table">
         <div class="fs-table-header">
-          <div>제목</div>
-          <div>생성일</div>
-          <div>수정일</div>
+          <img src="" />
           <div></div>
         </div>
         {% for item in forms %}
-        <a href="{% url 'form_edit' key=item.key %}" class="fs-table-row">
-          <div class="fs-table-row-title">{{item.title}}</div>
-          <div>{{item.createdAt}}</div>
-          <div>{{item.updatedAt}}</div>
-          <div class="fs-table-menu"><i class="fas fa-ellipsis-v"></i></div>
-        </a>
+        <div class="fs-table-row">
+          <img src="" />
+          <div>{{item}}</div>
+        </div>
         {% endfor %}
       </div>
       <div id="fs-add" class="fs-tools"><i class="fas fa-plus"></i></div>

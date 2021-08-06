@@ -2,6 +2,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400;500;700;900&display=swap');
 
 /* initialize */
+
+* {
+  box-sizing: border-box;
+}
 body {
   font-family: 'Noto Sans KR', sans-serif;
   padding: 0;
@@ -35,6 +39,7 @@ button {
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
+  padding: 0px 10px;
 }
 
 .btn {
@@ -43,39 +48,4 @@ button {
   padding: 5px 10px;
   font-weight: 300;
   border-radius: 5px;
-}
-
-/* header */
-.bs-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 70px;
-}
-
-.bs-header-left {
-  display: flex;
-  align-items: center;
-}
-
-.bs-header-left > * {
-  margin-right: 10px;
-}
-
-.bs-header-left-logo {
-  background: #7248b9;
-  padding: 7px 10px;
-  color: white;
-  border-radius: 10px;
-}
-
-.bs-header-left-title {
-  font-size: 1.2rem;
-  color: #5f6368;
-  font-weight: 400;
-}
-
-.bs-header-right {
-  display: flex;
-  align-items: center;
 }

@@ -2,14 +2,15 @@ from django.shortcuts import render
 from django.contrib import auth
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
-from .models import User as UserModel, Choices, Questions, Answer, Form, Responses
+from .models import User as UserModel, Choices as ChoicesModel, Questions as QuestionsModel, Answer, Form, Responses
+import json
+import random
+import string
 
 def home(request) :
-  print()
   if not request.user.is_authenticated:
     return HttpResponseRedirect(reverse('login'))
-  forms = Form.objects.filter(creator = request.user)
-  return render(request, "forms/index.html", {"forms": forms})
+  return HttpResponseRedirect(reverse('forms'))
 
 def login(request) :
   if request.user.is_authenticated:
@@ -72,17 +73,40 @@ def signup(request) :
   return render(request, 'signup.html')
 
 def forms(request) :
+  if not request.user.is_authenticated:
+    return HttpResponseRedirect(reverse('login'))
+  forms = Form.objects.filter(creator = request.user)
 
-  return render(request, 'forms/index.html')
+  
+  return render(request, 'forms/index.html',{"forms": forms})
 
 def form(request) :
 
-  return render(request, 'forms/_pk/index.html')
+  return render(request, 'forms/_key/index.html')
 
-def edit(request) :
+def form_add(request) :
+  if not request.user.is_authenticated:
+    return HttpResponseRedirect(reverse('login'))
+  if request.method == "POST":
+    data = json.loads(request.body)
+    title = data["title"]
+    key = ''.join(random.choice(string.ascii_letters + string.digits) for x in range(20))
+    choices = ChoicesModel(choice = "Option 1")
+    choices.save()
+    question = QuestionsModel(question_type = "multiple", question_name= "새로운 질문", required= False)
+    question.save()
+    question.choices.add(choices)
+    question.save()
+    form = Form(key = key, title = title, creator=request.user)
+    form.save()
+    form.questions.add(question)
+    form.save()
+    return JsonResponse({"message": "Sucess", "key": key})
 
-  return render(request, 'forms/_pk/edit.html')
+def form_edit(request,key) :
+
+  return render(request, 'forms/_key/edit.html')
 
 def responses(request) :
 
-  return render(request, 'forms/_pk/responses.html')
+  return render(request, 'forms/_key/responses.html')
