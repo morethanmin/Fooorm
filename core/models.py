@@ -13,8 +13,6 @@ class Questions(models.Model):
     type = models.CharField(max_length=20)
     required = models.BooleanField(default= False)
     key = models.CharField(max_length = 5000, blank = True)
-    score = models.IntegerField(blank = True, default=0)
-    feedback = models.CharField(max_length = 5000, null = True)
     options = models.ManyToManyField(Options, related_name = "options")
 
 class Answer(models.Model):
