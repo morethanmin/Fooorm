@@ -155,4 +155,3 @@ $(document).ready(function () {
     toastr.success('클립보드에 저장되었습니다.')
   })
 })
-// toastr.success('저장에 성공하였습니다.')

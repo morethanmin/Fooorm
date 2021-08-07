@@ -4,7 +4,7 @@ jquery django sqlite swiper bootstrap5
 
 > 설문폼 서비스
 >
-> 장고를 학습하기 위해 만든 토이 프로젝트입니다.
+> 장고를 학습하고 프레임워크의 소중함을 깨달을 수 있었던 토이 프로젝트입니다.
 
 ## Live demo
 
@@ -28,6 +28,8 @@ jquery django sqlite swiper bootstrap5
 - django
 - jquery
 - sqlite
+- toastr
+- jquery.cookie
 
 ## Getting started
 

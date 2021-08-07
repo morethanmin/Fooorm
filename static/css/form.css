@@ -1,3 +1,7 @@
+body {
+  background-color: #f0ebf8;
+}
+
 /* header */
 
 .fm-header {
@@ -137,8 +141,18 @@
   margin-left: 20px;
 }
 
+.fm-form-options {
+  width: 1px;
+  height: 1px;
+  color: white;
+}
+
 .fm-form-option {
   margin: 0;
+}
+
+.fm-form-required {
+  color: #d93025;
 }
 
 /* header */

@@ -1,0 +1,18 @@
+{% extends 'base.html' %} {% load static %} {% block css %}
+<link rel="stylesheet" href="{% static 'css/form.css' %}?140" />
+{% endblock %} {% block script %}
+<script src="{% static 'javascript/form_view.js'%}?15"></script>
+
+{% endblock %} {% block content %}
+<div class="fm-container">
+  <div class="fm-main">
+    <div class="fm-form">
+      <div class="fm-form-header fm-form-box">
+        <div class="fm-form-input fm-form-header-title">성공적으로 전송되었습니다</div>
+        <div class="fm-form-input fm-form-textarea">감사합니다</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

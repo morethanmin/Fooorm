@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib import auth
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
-from .models import User as UserModel, Options as OptionsModel, Questions as QuestionsModel, Answer, Form as FormModel, Responses
+from .models import User as UserModel, Options as OptionsModel, Questions as QuestionsModel, Answer as AnswerModel, Form as FormModel, Responses as ResponsesModel
 import json
 import random
 import string
@@ -83,7 +83,6 @@ def form(request,key) :
   form = FormModel.objects.filter(key = key)
   return render(request, 'forms/_key/index.html',{"form": form[0]})
 
-
 def form_edit(request,key) :
   if not request.user.is_authenticated:
     return HttpResponseRedirect(reverse('login'))
@@ -91,12 +90,17 @@ def form_edit(request,key) :
 
   return render(request, 'forms/_key/edit.html',{"menu": "edit", "form": form[0]})
 
-def form_responses(request ,key) :
+
+def form_success(request,key) :
+
+  return render(request, 'forms/_key/success.html')
+
+def form_responses_summary(request ,key) :
   if not request.user.is_authenticated:
     return HttpResponseRedirect(reverse('login'))
   form = FormModel.objects.filter(key = key)
 
-  return render(request, 'forms/_key/responses.html', {"menu": "responses", "form": form[0]})
+  return render(request, 'forms/_key/responses/summary.html', {"menu": "responses", "form": form[0]})
 
 
 def api_login(request) :
@@ -195,6 +199,26 @@ def api_form(request) :
     else: form = form[0]
     form.delete()
     return JsonResponse({'message': "success"})
+
+def api_form_id(request, key) :
+  form = FormModel.objects.filter(key = key)
+  if form.count() == 0:
+    return HttpResponseRedirect(reverse('404'))
+  else: form = form[0]
+  if request.method == "POST":
+    res_key = ''.join(random.choice(string.ascii_letters + string.digits) for x in range(20))
+    response = ResponsesModel(key = res_key, form = form)
+    response.save()
+    for i in request.POST:
+      if i == "csrfmiddlewaretoken":
+        continue
+      question = form.questions.get(id = i)
+      for j in request.POST.getlist(i):
+        answer = AnswerModel(answer=j, question = question)
+        answer.save()
+        response.answer.add(answer)
+        response.save()
+  return HttpResponseRedirect(reverse('form_success', kwargs={'key': key}))
 
 def api_question(request) :
   if not request.user.is_authenticated:

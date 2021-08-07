@@ -1,5 +1,5 @@
 {% extends 'base.html' %} {% load static %} {% block css %}
-<link rel="stylesheet" href="{% static 'css/form.css' %}?138" />
+<link rel="stylesheet" href="{% static 'css/form.css' %}?139" />
 {% endblock %} {% block script %}
 <script src="{% static 'javascript/form.js'%}?3"></script>
 
@@ -17,7 +17,7 @@
     </div>
     <nav class="fm-header-bottom container">
       <a class="fm-header-bottom-btn {% if menu == "edit" %} active{% endif %}" href="{% url 'form_edit' key=form.key %}">질문</a>
-      <a class="fm-header-bottom-btn {% if menu == "responses" %} active{% endif %}" href="{% url 'form_responses' key=form.key  %}">응답</a>
+      <a class="fm-header-bottom-btn {% if menu == "responses" %} active{% endif %}" href="{% url 'form_responses_summary' key=form.key  %}">응답</a>
     </nav>
   </header>
   <div class="fm-main">
