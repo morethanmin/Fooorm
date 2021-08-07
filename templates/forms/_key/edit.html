@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% load static %} {% block css %}
-<link rel="stylesheet" href="{% static 'css/form.css' %}?135" />
+<link rel="stylesheet" href="{% static 'css/form.css' %}?138" />
 {% endblock %} {% block script %}
-<script src="{% static 'javascript/form.js'%}?3"></script>
+<script src="{% static 'javascript/form.js'%}?9"></script>
 
 {% endblock %} {% block content %}
 <div class="fm-container">
@@ -30,8 +30,8 @@
       {% for question in form.questions.all %}
       <div class="fm-form-content fm-form-box">
         <div class="fm-form-centent-top">
-          <input value="{{question.name}}" class="fm-form-input fm-form-centent-top-input" required></input>
-          <select class="fm-form-select" name="">
+          <input name="{{question}}" value="{{question.name}}" class="fm-form-input fm-form-centent-top-input" required></input>
+          <select data-key="{{question.id}}" data-form_key="{{form.key}}" data-origin_type = "{{question.type}}" class="fm-form-select" >
             <option {% if question.type == "text" %}selected{% endif %} value="text">텍스트</option>
             <option {% if question.type == "radio" %}selected{% endif %} value="radio">객관식</option>
             <option {% if question.type == "checkbox" %}selected{% endif %} value="checkbox">체크박스</option>
@@ -39,43 +39,64 @@
         </div>
         <div class="fm-form-centent-middle">
         {% if question.type == "text" %}
-          <textarea value="{{form.description}}" class="fm-form-input fm-form-textarea autosize" placeholder="설문지 내용을 입력해주세요." ></textarea>
+          <div class="fm-type-text">
+            <textarea value="{{form.description}}" class="fm-form-input fm-form-textarea" placeholder="답변 내용이 입력됩니다..." disabled></textarea>
+          </div>
         {% endif %}
         {% if question.type == "radio" %}
-          {% for choice in question.choices.all %}
-          <div class="fm-type-choice">
-            <input class="fm-form-radio" type="radio" id="{{choice.id}}" disabled></input>
-            <label for="{{choice.id}}">
-              <input class="fm-form-input" type="text" value="{{choice.name}}" placeholder="내용을 입력하세요." data-id="{{choice.id}}" required>
+          {% for option in question.options.all %}
+          <div class="fm-type-option">
+            <input class="fm-form-option" type="radio" id="{{option.id}}" disabled></input>
+            <label for="{{option.id}}">
+              <input class="fm-form-input" type="text" value="{{option.name}}" placeholder="옵션 내용을 입력하세요." data-id="{{options.id}}" required>
             </label>
-            <div class="fm-type-choice-btns"> 
-              <i class="fas fa-minus"></i>
+            <div class="fm-type-option-btns" data-form_key="{{form.key}}" data-id="{{option.id}}"> 
+              <i data-form_key="{{form.key}}" data-id="{{option.id}}" class="fas fa-minus"></i>
             </div>
           </div>
           {% endfor %}
-          <div class="fm-type-choice">
-            <input class="fm-form-radio" type="radio" id="" disabled></input>
-            <label class="fm-type-choice-add" for="">
+          <div class="fm-type-option">
+            <input class="fm-form-option" type="radio" disabled></input>
+            <label data-id="{{question.id}}" data-form_key="{{form.key}}" class="fm-type-option-add" for="">
               옵션 추가
             </label>
           </div>
         {% endif %}
         {% if question.type == "checkbox" %}
-          
+          {% for option in question.options.all %}
+          <div class="fm-type-option">
+            <input class="fm-form-option" type="checkbox" id="{{option.id}}" disabled></input>
+            <label for="{{option.id}}">
+              <input class="fm-form-input" type="text" value="{{option.name}}" placeholder="옵션 내용을 입력하세요." data-id="{{options.id}}" required>
+            </label>
+            <div class="fm-type-option-btns" data-form_key="{{form.key}}" data-id="{{option.id}}"> 
+              <i data-form_key="{{form.key}}" data-id="{{option.id}}" class="fas fa-minus"></i>
+            </div>
+          </div>
+          {% endfor %}
+          <div class="fm-type-option">
+            <input class="fm-form-option" type="checkbox" disabled></input>
+            <label data-id="{{question.id}}" data-form_key="{{form.key}}" class="fm-type-option-add" for="">
+              옵션 추가
+            </label>
+          </div>
         {% endif %}
         </div>
         
         <div class="fm-form-centent-bottom">
-          <div class="fm-form-centent-bottom-trash"><i class="far fa-trash-alt"></i></div>
+          <div class="fm-form-centent-bottom-trash" data-id="{{question.id}}" data-form_key="{{form.key}}" >
+            <i class="far fa-trash-alt" data-id="{{question.id}}" data-form_key="{{form.key}}" ></i>
+          </div>
           <div class="divider"></div>
-          <div class="fm-form-centent-bottom-check"><input type="checkbox">필수</input></div>
+          <div class="fm-form-centent-bottom-check"><input type="checkbox" {% if question.required == True %}checked{% endif %}>필수</input></div>
         </div>
       </div>
       {% endfor %}
       <div class="fm-quickmenu"> 
-        <div><i class="fas fa-plus"></i></div>
+        <div class="fm-quickmenu-add" data-form_key="{{form.key}}"><i data-form_key="{{form.key}}" class="fas fa-plus"></i></div>
         <div><i class="fas fa-check"></i></div>
         <div><i class="fas fa-share-alt"></i></div>
+        <div><i class="far fa-trash-alt"></i></div>
       </div>
     </div>
 

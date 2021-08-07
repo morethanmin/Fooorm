@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser, models.Model):
     email = models.EmailField(unique = True)
 
-class Choices(models.Model):
+class Options(models.Model):
     name = models.CharField(max_length=5000)
     is_answer = models.BooleanField(default=False)
 
@@ -15,7 +15,7 @@ class Questions(models.Model):
     answer_key = models.CharField(max_length = 5000, blank = True)
     score = models.IntegerField(blank = True, default=0)
     feedback = models.CharField(max_length = 5000, null = True)
-    choices = models.ManyToManyField(Choices, related_name = "choices")
+    options = models.ManyToManyField(Options, related_name = "options")
 
 class Answer(models.Model):
     answer = models.CharField(max_length=5000)

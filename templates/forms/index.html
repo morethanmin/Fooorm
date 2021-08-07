@@ -40,15 +40,15 @@
         {% for item in forms %}
         <a href="{% url 'form_edit' key=item.key %}" class="fs-table-row">
           <div class="fs-table-row-title">{{item.name}}</div>
-          <div>{{item.created_at}}</div>
-          <div>{{item.updated_at}}</div>
+          <div>{{item.created_at|date:"Y-m-d"}}</div>
+          <div>{{item.updated_at|date:"Y-m-d"}}</div>
           <div class="fs-table-menu"><i class="fas fa-ellipsis-v"></i></div>
         </a>
         {% endfor %}
       </div>
-      <div id="fs-add" class="fs-tools"><i class="fas fa-plus"></i></div>
     </div>
   </div>
+  <div id="fs-add" class="fs-tools"><i class="fas fa-plus"></i></div>
 </div>
 
 {% endblock %}

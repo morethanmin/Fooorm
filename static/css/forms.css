@@ -50,18 +50,20 @@
 .fs-main {
   position: relative;
   width: 100%;
+  overflow-y: scroll;
 }
 .fs-container {
   display: grid;
+  position: relative;
   grid-template-rows: auto 1fr;
   height: 100vh;
+  overflow-y: hidden;
 }
 
 .fs-main-header {
   /* flex */
   display: flex;
   align-items: center;
-
   width: 100%;
   background-color: #f1f3f4;
   height: auto;

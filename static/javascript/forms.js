@@ -3,7 +3,7 @@ $(function () {
 
   $('#fs-add').click(function (e) {
     const csrftoken = $.cookie('csrftoken')
-    fetch('/forms/add', {
+    fetch('/api/forms', {
       method: 'POST',
       headers: { 'X-CSRFToken': csrftoken },
       body: JSON.stringify({
