@@ -5,7 +5,7 @@ class User(AbstractUser, models.Model):
     email = models.EmailField(unique = True)
 
 class Choices(models.Model):
-    choice = models.CharField(max_length=5000)
+    name = models.CharField(max_length=5000)
     is_answer = models.BooleanField(default=False)
 
 class Questions(models.Model):

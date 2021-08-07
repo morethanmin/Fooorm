@@ -104,19 +104,19 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
-
+  gap: 10px 0px;
   background-color: white;
   margin-bottom: 30px;
-  padding: 20px 10px;
+  padding: 20px 20px;
   border-radius: 10px;
 
   border: 1px solid #dadce0;
 }
 
-/* inputs */
+/* common inputs */
 
 .fm-form-input {
-  padding: 10px;
+  padding: 10px 0px;
   font-size: 0.9rem;
 
   border-bottom: 2px solid white;
@@ -133,6 +133,10 @@
   border-radius: 5px;
   padding: 10px 20px;
   margin-left: 20px;
+}
+
+.fm-form-radio {
+  margin: 0;
 }
 
 /* header */
@@ -159,6 +163,32 @@
 }
 
 /* form middle */
+
+.fm-type-choice {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  gap: 0px 10px;
+}
+
+.fm-type-choice > label {
+  width: 100%;
+}
+
+.fm-type-choice > label > input {
+  width: 100%;
+}
+
+.fm-type-choice-btns {
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.fm-type-choice-add {
+  font-size: 0.9rem;
+  color: #5f6368;
+  cursor: pointer;
+}
 
 /* form bottom */
 

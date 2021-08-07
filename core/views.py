@@ -94,7 +94,7 @@ def form_add(request) :
     name = data["name"]
     title = data["title"]
     key = ''.join(random.choice(string.ascii_letters + string.digits) for x in range(20))
-    choices = ChoicesModel(choice = "Option 1")
+    choices = ChoicesModel(name = "새로운 선택")
     choices.save()
     question = QuestionsModel(name= "새로운 질문", type = "radio", required= False)
     question.save()
