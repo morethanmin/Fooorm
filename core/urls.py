@@ -7,6 +7,7 @@ urlpatterns = [
     path('logout/', views.logout, name="logout"),
     path('siginup/', views.signup, name="signup"),
     path('forms/', views.forms, name="forms"),
+    path('forms/<str:key>/', views.form, name="form"),
     path('forms/<str:key>/edit', views.form_edit, name="form_edit"),
     path('forms/<str:key>/responses', views.form_responses, name="form_responses"),
 
@@ -17,5 +18,4 @@ urlpatterns = [
     path('api/question/<str:id>', views.api_question_id, name="api_question_id"),
     path('api/option', views.api_option, name="api_option"),
     path('api/option/<str:id>', views.api_option_id, name="api_option_id"),
-    path('<str:user>/<str:form>', views.form_view, name="form"),
 ]

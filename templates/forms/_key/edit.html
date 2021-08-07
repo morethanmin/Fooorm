@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% load static %} {% block css %}
 <link rel="stylesheet" href="{% static 'css/form.css' %}?138" />
 {% endblock %} {% block script %}
-<script src="{% static 'javascript/form.js'%}?2"></script>
+<script src="{% static 'javascript/form.js'%}?3"></script>
 
 {% endblock %} {% block content %}
 <div class="fm-container">
@@ -96,7 +96,7 @@
       {% endfor %}
       <div class="fm-quickmenu"> 
         <div class="fm-quickmenu-add" data-form_key="{{form.key}}"><i data-form_key="{{form.key}}" class="fas fa-plus"></i></div>
-        <div><i class="fas fa-share-alt"></i></div>
+        <div class="fm-quickmenu-share" ><i class="fas fa-share-alt"></i></div>
         <div class="fm-quickmenu-delete" data-form_key="{{form.key}}"><i data-form_key="{{form.key}}" class="far fa-trash-alt"></i></div>
       </div>
     </div>

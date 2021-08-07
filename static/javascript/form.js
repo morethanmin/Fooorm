@@ -144,5 +144,15 @@ $(document).ready(function () {
         window.location = `/forms/${form_key}/edit`
       })
   })
+
+  $('.fm-quickmenu-share').click(function (e) {
+    const t = document.createElement('textarea')
+    document.body.appendChild(t)
+    t.value = window.document.location.href.slice(0, -5)
+    t.select()
+    document.execCommand('copy')
+    document.body.removeChild(t)
+    toastr.success('클립보드에 저장되었습니다.')
+  })
 })
 // toastr.success('저장에 성공하였습니다.')

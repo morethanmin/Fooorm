@@ -54,6 +54,12 @@ select:focus {
   outline: none;
 }
 
+textarea:disabled,
+input:disabled {
+  background-color: white;
+  color: black;
+}
+
 /* common */
 .container {
   max-width: 1200px;
@@ -65,7 +71,8 @@ select:focus {
 .btn {
   background-color: #7248b9;
   color: white !important;
-  padding: 5px 10px;
+  padding: 10px 10px;
   font-weight: 300;
   border-radius: 5px;
+  cursor: pointer;
 }

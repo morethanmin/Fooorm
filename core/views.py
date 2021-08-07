@@ -26,6 +26,10 @@ def login(request) :
       return render(request, "login.html", {"message": "아이디 또는 비밀번호가 옳지 않습니다."})
   return render(request, 'login.html')
 
+def logout(request) :
+  auth.logout(request)
+  return HttpResponseRedirect(reverse('home'))
+
 
 def signup(request) :
   if request.user.is_authenticated:
@@ -73,13 +77,11 @@ def forms(request) :
   if not request.user.is_authenticated:
     return HttpResponseRedirect(reverse('login'))
   forms = FormModel.objects.filter(creator = request.user).order_by('-created_at')
-  
   return render(request, 'forms/index.html',{"forms": forms})
 
-def form_view(request,key) :
+def form(request,key) :
   form = FormModel.objects.filter(key = key)
-
-  return render(request, '_user/form.html',{"form": form})
+  return render(request, 'forms/_key/index.html',{"form": form[0]})
 
 
 def form_edit(request,key) :
@@ -110,9 +112,6 @@ def api_login(request) :
     else:
       return render(request, "login.html", {"message": "아이디 또는 비밀번호가 옳지 않습니다."})
 
-def logout(request) :
-  auth.logout(request)
-  return HttpResponseRedirect(reverse('home'))
 
 def api_signup(request) :
   if request.user.is_authenticated:

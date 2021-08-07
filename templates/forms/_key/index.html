@@ -1,0 +1,54 @@
+{% extends 'base.html' %} {% load static %} {% block css %}
+<link rel="stylesheet" href="{% static 'css/form.css' %}?139" />
+{% endblock %} {% block script %}
+<script src="{% static 'javascript/form.js'%}?15"></script>
+
+{% endblock %} {% block content %}
+<div class="fm-container">
+  <div class="fm-main">
+    <div class="fm-form">
+      <div class="fm-form-header fm-form-box">
+        <input name="title"  value="{{form.title}}" class=" fm-form-input fm-form-header-title" disabled></input>
+        <textarea name="description" value="{{form.description}}" class=" fm-form-input fm-form-textarea autosize" disabled>{{form.description}}</textarea>
+      </div>
+      {% for question in form.questions.all %}
+      <div class="fm-form-content fm-form-box">
+        <div class="fm-form-centent-top">
+          <input value="{{question.name}}" class=" fm-form-input fm-form-centent-top-input" disabled></input>
+          {% if question.required == True %}*{% endif %}
+        </div>
+        <div class="fm-form-centent-middle">
+        {% if question.type == "text" %}
+          <div class="fm-type-text">
+            <textarea value="{{form.description}}" class="fm-form-input fm-form-textarea autosize" placeholder="내용을 입력하세요"></textarea>
+          </div>
+        {% endif %}
+        {% if question.type == "radio" %}
+          {% for option in question.options.all %}
+          <div class="fm-type-option">
+            <input name="radio" class="fm-form-option" id="{{option.id}}" type="radio"></input>
+            <label class="fm-form-input" for="{{option.id}}">
+              {{option.name}}
+            </label>
+          </div>
+          {% endfor %}
+        {% endif %}
+        {% if question.type == "checkbox" %}
+          {% for option in question.options.all %}
+          <div class="fm-type-option">
+            <input class="fm-form-option" id="{{option.id}}" type="checkbox"></input>
+            <label class="fm-form-input"  for="{{option.id}}">
+              {{option.name}}
+            </label>
+          </div>
+          {% endfor %}
+        {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+      <button class="btn">제출</button>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
