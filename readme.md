@@ -33,7 +33,7 @@ jquery django sqlite swiper bootstrap5
 
 ## Getting started
 
-- using git clone
+- use git clone.
 
 ```bash
 $ cd Fooorm
