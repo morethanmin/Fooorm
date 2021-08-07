@@ -33,13 +33,11 @@ jquery django sqlite swiper bootstrap5
 
 ## Getting started
 
-- you can check admin page using superuser (id: admin@admin.com, pw: aaabbbccc123)
-- admin page is "/admin"
-
-- Start dev server
+- using git clone
 
 ```bash
-$ python3 manage.py runserver
+$ cd Fooorm
+$ python3 manage.py runserver (or python manage.py runserver)
 ```
 
 - open http://localhost:8000/
