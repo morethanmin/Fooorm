@@ -12,7 +12,7 @@ jquery django sqlite swiper bootstrap5
 
 ## Preview
 
-![image](https://user-images.githubusercontent.com/72514247/128588331-86567177-5d4e-4b37-8d1b-077bfbda5a2f.png)
+![image](https://user-images.githubusercontent.com/72514247/128608326-8d6143c5-4e53-4dd0-b195-a6e1cd2daac1.png)
 
 ## Features
 
