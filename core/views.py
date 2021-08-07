@@ -174,6 +174,28 @@ def api_form(request) :
     form.questions.add(question)
     form.save()
     return JsonResponse({"message": "Sucess", "key": key})
+  if request.method == "PUT":
+    data = json.loads(request.body)
+    form = FormModel.objects.filter(key = data["key"])
+    if form.count() == 0:
+      return HttpResponseRedirect(reverse('404'))
+    else: form = form[0]
+    if data["name"] == "name":
+      form.name = data["value"]
+    if data["name"] == "title":
+      form.title = data["value"]
+    if data["name"] == "description":
+      form.description = data["value"]
+    form.save()
+    return JsonResponse({'message': "success"})
+  if request.method == "DELETE":
+    data = json.loads(request.body)
+    form = FormModel.objects.filter(key = data["form_key"])
+    if form.count() == 0:
+      return HttpResponseRedirect(reverse('404'))
+    else: form = form[0]
+    form.delete()
+    return JsonResponse({'message': "success"})
 
 def api_question(request) :
   if not request.user.is_authenticated:
@@ -201,20 +223,16 @@ def api_question_id(request,id) :
   if request.method == "PUT":
     data = json.loads(request.body)
 
-    form = FormModel.objects.filter(key = data["form_key"])
-    if form.count() == 0:
-      return HttpResponseRedirect(reverse('404'))
-    else: form = form[0]
-
-    if form.creator != request.user:
-      return HttpResponseRedirect(reverse("403"))
     question = QuestionsModel.objects.filter(id = id)
     if question.count() == 0:
       return HttpResponseRedirect(reverse("404"))
     else: question = question[0]
-    question.name = data["name"]
-    question.type = data["type"]
-    question.required = data["required"]
+    if data["name"] == "name":
+      question.name = data["value"]
+    if data["name"] == "required":
+      question.required = not question.required
+    if data["name"] == "type":
+      question.type = data["value"]
     question.save()
     return JsonResponse({'message': "success"})
   
@@ -240,6 +258,19 @@ def api_option(request) :
     return JsonResponse({'message': "success"})
 
 def api_option_id(request, id) :
+
+  if request.method == "PUT":
+    data = json.loads(request.body)
+
+    option = OptionsModel.objects.filter(id = id)
+    if option.count() == 0:
+      return HttpResponseRedirect(reverse("404"))
+    else: option = option[0]
+    if data["name"] == "name":
+      option.name = data["value"]
+    option.save()
+    return JsonResponse({'message': "success"})
+
   if request.method == "DELETE":
     option = OptionsModel.objects.filter(id = id)
     if option.count() == 0:

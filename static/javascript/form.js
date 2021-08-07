@@ -8,31 +8,44 @@ $(document).ready(function () {
       .animate({ top: position + currentPosition + 'px' }, 500)
   })
 
-  // change question type
-  $('.fm-form-select').on('input', function (e) {
-    const { key, form_key } = e.target.dataset
-    const type = e.target.value
-    fetch(`/api/question/${key}`, {
+  //update form input
+  $('.form-input').on('input', function (e) {
+    // form >> key, name, title, description, questions
+    const { key } = e.target.dataset
+    const name = e.target.name
+    const value = e.target.value
+
+    fetch(`/api/form`, {
       method: 'PUT',
       headers: { 'X-CSRFToken': csrftoken },
       body: JSON.stringify({
+        key,
+        name,
+        value,
+      }),
+    })
+      .then((response) => response.json())
+      .then((result) => {})
+  })
+
+  //delete form
+  $('.fm-quickmenu-delete').click(function (e) {
+    const { form_key } = e.target.dataset
+    fetch(`/api/form`, {
+      method: 'DELETE',
+      headers: { 'X-CSRFToken': csrftoken },
+      body: JSON.stringify({
         form_key: form_key,
-        name: '새로운 질문',
-        type: type,
-        required: false,
       }),
     })
       .then((response) => response.json())
       .then((result) => {
-        //html 삽입 예정
-        window.location = `/forms/${form_key}/edit`
+        window.location = `/forms`
       })
   })
-
   //add question
   $('.fm-quickmenu-add').click(function (e) {
     const { form_key } = e.target.dataset
-    const type = e.target.value
     fetch(`/api/question`, {
       method: 'POST',
       headers: { 'X-CSRFToken': csrftoken },
@@ -44,6 +57,26 @@ $(document).ready(function () {
       .then((result) => {
         //html 삽입 예정
         window.location = `/forms/${form_key}/edit`
+      })
+  })
+
+  // update question input
+  $('.question-input').on('input', function (e) {
+    const { id, form_key } = e.target.dataset
+    const name = e.target.name
+    const value = e.target.value
+    fetch(`/api/question/${id}`, {
+      method: 'PUT',
+      headers: { 'X-CSRFToken': csrftoken },
+      body: JSON.stringify({
+        name,
+        value,
+      }),
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        //html 삽입 예정
+        if (name === 'type') window.location = `/forms/${form_key}/edit`
       })
   })
 
@@ -62,16 +95,15 @@ $(document).ready(function () {
       })
   })
 
-  // add question option
+  // add option
   $('.fm-type-option-add').click(function (e) {
     const { id, form_key } = e.target.dataset
-    console.log(id, form_key)
     fetch(`/api/option`, {
       method: 'POST',
       headers: { 'X-CSRFToken': csrftoken },
       body: JSON.stringify({
-        id: id,
-        name: '새로운 옵션',
+        id: id, //question id
+        name: '새로운 명',
       }),
     })
       .then((response) => response.json())
@@ -81,7 +113,24 @@ $(document).ready(function () {
       })
   })
 
-  // delete question option
+  // update option input
+  $('.option-input').on('input', function (e) {
+    const { id } = e.target.dataset
+    const name = e.target.name
+    const value = e.target.value
+    fetch(`/api/option/${id}`, {
+      method: 'PUT',
+      headers: { 'X-CSRFToken': csrftoken },
+      body: JSON.stringify({
+        name,
+        value,
+      }),
+    })
+      .then((response) => response.json())
+      .then((result) => {})
+  })
+
+  // delete option
   $('.fm-type-option-btns').click(function (e) {
     const { id, form_key } = e.target.dataset
 

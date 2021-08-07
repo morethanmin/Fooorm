@@ -76,8 +76,7 @@
 .fm-main {
   position: relative;
   width: 100%;
-  height: calc(100vh - 108px);
-
+  min-height: 100%;
   background-color: #f0ebf8;
   z-index: 0;
 }
