@@ -86,6 +86,7 @@
 }
 
 .fm-form {
+  position: relative;
   max-width: 900px;
   margin: 0 auto;
   width: 100%;
@@ -112,6 +113,8 @@
   border: 1px solid #dadce0;
 }
 
+/* inputs */
+
 .fm-form-input {
   padding: 10px;
   font-size: 0.9rem;
@@ -123,6 +126,17 @@
   border-bottom: 2px solid #7248b9;
 }
 
+.fm-form-textarea {
+  resize: none;
+}
+.fm-form-select {
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin-left: 20px;
+}
+
+/* header */
+
 .fm-form-header-title {
   font-size: 1.8rem;
 }
@@ -132,21 +146,62 @@
   resize: none;
 }
 
-.fm-form-centent-title {
+/* form top */
+
+.fm-form-centent-top {
   display: flex;
   justify-content: space-between;
 }
 
-.fm-form-centent-title-input {
+.fm-form-centent-top-input {
   font-size: 1.3rem;
   width: 100%;
 }
 
-.fm-form-textarea {
-  resize: none;
+/* form middle */
+
+/* form bottom */
+
+.fm-form-centent-bottom {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  color: #5f6368;
+  border-top: 1px solid #dadce0;
+  margin-top: 10px;
+  padding: 0px 10px;
+  padding-top: 10px;
 }
-.fm-form-select {
+
+.fm-form-centent-bottom > * {
+  margin-left: 10px;
+}
+
+.divider {
+  border-left: 1px solid #dadce0;
+  height: 40px;
+  margin-left: 30px;
+}
+
+.fm-form-centent-bottom-trash {
+  font-size: 1.2rem;
+}
+
+/* quickmenu */
+
+.fm-quickmenu {
+  position: absolute;
+  top: 30%;
+  right: -10px;
+  background: #fff;
+  transform: translate(100%, 0%);
+  border: 1px solid #dadce0;
   border-radius: 5px;
-  padding: 10px 20px;
-  margin-left: 20px;
+  box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 1px 3px 0 rgb(0 0 0 / 12%);
+}
+
+.fm-quickmenu > div {
+  color: #5f6368;
+  padding: 13px;
+  cursor: pointer;
 }

@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% load static %} {% block css %}
-<link rel="stylesheet" href="{% static 'css/form.css' %}?12" />
+<link rel="stylesheet" href="{% static 'css/form.css' %}?134" />
 {% endblock %} {% block script %}
-<script src="{% static 'javascript/forms.js'%}?"></script>
+<script src="{% static 'javascript/form.js'%}?3"></script>
 
 {% endblock %} {% block content %}
 <div class="fm-container">
@@ -22,34 +22,46 @@
   </header>
   <div class="fm-main">
     <div class="fm-form">
-    <div class="fm-form-header fm-form-box">
-      <input value="{{form.title}}" class="fm-form-input fm-form-header-title"></input>
-      <textarea value="{{form.description}}" class="fm-form-input fm-form-textarea autosize" placeholder="설문지 내용을 입력해주세요." ></textarea>
-    </div>
+      <div class="fm-form-header fm-form-box">
+        <input value="{{form.title}}" class="fm-form-input fm-form-header-title"></input>
+        <textarea value="{{form.description}}" class="fm-form-input fm-form-textarea autosize" placeholder="설문지 내용을 입력해주세요." ></textarea>
+      </div>
     
-    {% for item in form.questions.all %}
+      {% for item in form.questions.all %}
       <div class="fm-form-content fm-form-box">
-        <div class="fm-form-centent-title">
-          <input value="{{item.name}}" class="fm-form-input fm-form-centent-title-input"></input>
+        <div class="fm-form-centent-top">
+          <input value="{{item.name}}" class="fm-form-input fm-form-centent-top-input"></input>
           <select class="fm-form-select" name="">
             <option value="text">텍스트</option>
             <option value="radio">객관식</option>
             <option value="checkbox">체크박스</option>
           </select>
         </div>
+        <div class="fm-form-centent-middle">
         {% if item.type == "text" %}
-          text
+          <textarea value="{{form.description}}" class="fm-form-input fm-form-textarea autosize" placeholder="설문지 내용을 입력해주세요." ></textarea>
         {% endif %}
         {% if item.type == "radio" %}
+          radio
         {% endif %}
         {% if item.type == "checkbox" %}
           checkbox
         {% endif %}
-        <textarea value="{{form.description}}" class="fm-form-input fm-form-textarea autosize" placeholder="설문지 내용을 입력해주세요." ></textarea>
+        </div>
+        
+        <div class="fm-form-centent-bottom">
+          <div class="fm-form-centent-bottom-trash"><i class="far fa-trash-alt"></i></div>
+          <div class="divider"></div>
+          <div class="fm-form-centent-bottom-check"><input type="checkbox">필수</input></div>
+        </div>
       </div>
-    {% endfor %}
-    
+      {% endfor %}
+      <div class="fm-quickmenu"> 
+        <div><i class="fas fa-plus"></i></div>
+        <div><i class="fas fa-check"></i></div>
+      </div>
     </div>
+
   </div>
 </div>
 
