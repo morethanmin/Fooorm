@@ -1,5 +1,5 @@
 {% extends 'base.html' %} {% load static %} {% block css %}
-<link rel="stylesheet" href="{% static 'css/form.css' %}?7" />
+<link rel="stylesheet" href="{% static 'css/form.css' %}?8" />
 {% endblock %} {% block script %}
 
 {% endblock %} {% block content %}
@@ -21,7 +21,7 @@
   </header>
   <div class="fm-form">
     <div class="fm-form-box fs-header">
-      <div class="fs">응답 {{responses|length}}개</div>
+      <div class="fm-form-header-title">응답 {{responses|length}}개</div>
       <nav class="fm-header-bottom container">
         <a class="fm-header-bottom-btn {% if submenu == "summary" %} active{% endif %}" href="{% url 'form_responses_summary' key=form.key %}">요약</a>
         <a class="fm-header-bottom-btn {% if submenu == "question" %} active{% endif %}" href="{% url 'form_responses_question' key=form.key  %}">질문</a>

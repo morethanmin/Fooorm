@@ -78,11 +78,11 @@ body {
 /* fm-main */
 
 .fm-container {
-  height: 100vh;
+  height: 100%;
   position: relative;
   background-color: #f0ebf8;
 
-  padding-top: 108px;
+  padding: 108px 0px;
 }
 
 .fm-form {
