@@ -20,13 +20,11 @@
       <a class="fm-header-bottom-btn {% if menu == "responses" %} active{% endif %}" href="{% url 'form_responses_summary' key=form.key  %}">응답</a>
     </nav>
   </header>
-  <div class="fm-main">
     <div class="fm-form">
       <div class="fm-form-header fm-form-box">
         <input data-key="{{form.key}}" name="title"  value="{{form.title}}" class="form-input fm-form-input fm-form-header-title"></input>
         <textarea data-key="{{form.key}}" name="description" value="{{form.description}}" class="form-input fm-form-input fm-form-textarea autosize" placeholder="설문지 내용을 입력해주세요." >{{form.description}}</textarea>
       </div>
-    
       {% for question in form.questions.all %}
       <div class="fm-form-content fm-form-box">
         <div class="fm-form-centent-top">
@@ -100,8 +98,6 @@
         <div class="fm-quickmenu-delete" data-form_key="{{form.key}}"><i data-form_key="{{form.key}}" class="far fa-trash-alt"></i></div>
       </div>
     </div>
-
-  </div>
 </div>
 
 {% endblock %}

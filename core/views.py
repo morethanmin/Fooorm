@@ -98,9 +98,49 @@ def form_success(request,key) :
 def form_responses_summary(request ,key) :
   if not request.user.is_authenticated:
     return HttpResponseRedirect(reverse('login'))
+  form = (FormModel.objects.filter(key = key))[0]
+  responses = ResponsesModel.objects.filter(form = form)
+  summarys = []
+  for question in form.questions.all() : 
+    summarys.append({"question": question.name, "length": 0, "type": question.type, "answers": []})
+  for summary in summarys : 
+    for response in responses:
+      for answer in response.answer.all() : 
+        if answer.question.name == summary["question"]:
+          summary["length"] = summary["length"] + 1
+          if answer.question.type == "radio":
+            option = OptionsModel.objects.filter(id = answer.answer)
+            if option.count() == 0:
+              summary["answers"].append("삭제된 선택")
+            else: 
+              summary["answers"].append(option[0].name)
+          elif answer.question.type == "checkbox":
+            list_answer = answer.answer.split()
+            for item_answer in list_answer :
+              option = OptionsModel.objects.filter(id = item_answer)
+              if option.count() == 0:
+                summary["answers"].append("삭제된 선택")
+              else: 
+                summary["answers"].append(option[0].name)
+          else:
+            summary["answers"].append(answer.answer)
+  #text는 그대로 보여주고, checkbox, radio는 퍼센트로 계산
+
+  return render(request, 'forms/_key/responses/summary.html', {"menu": "responses", "submenu": "summary", "form":form, "responses": responses, "summarys": summarys })
+
+def form_responses_question(request ,key) :
+  if not request.user.is_authenticated:
+    return HttpResponseRedirect(reverse('login'))
   form = FormModel.objects.filter(key = key)
 
-  return render(request, 'forms/_key/responses/summary.html', {"menu": "responses", "form": form[0]})
+  return render(request, 'forms/_key/responses/question.html', {"menu": "responses", "submenu": "question", "form": form[0]})
+
+def form_responses_response(request ,key) :
+  if not request.user.is_authenticated:
+    return HttpResponseRedirect(reverse('login'))
+  form = FormModel.objects.filter(key = key)
+
+  return render(request, 'forms/_key/responses/response.html', {"menu": "responses", "submenu": "response", "form": form[0]})
 
 
 def api_login(request) :
@@ -214,6 +254,7 @@ def api_form_id(request, key) :
         continue
       question = form.questions.get(id = i)
       for j in request.POST.getlist(i):
+        print(j)
         answer = AnswerModel(answer=j, question = question)
         answer.save()
         response.answer.add(answer)

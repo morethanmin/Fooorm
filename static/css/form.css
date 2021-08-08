@@ -77,13 +77,6 @@ body {
 
 /* fm-main */
 
-.fm-main {
-  position: relative;
-  width: 100%;
-  min-height: 100%;
-  z-index: 0;
-  background-color: #f0ebf8;
-}
 .fm-container {
   height: 100vh;
   position: relative;
@@ -259,4 +252,11 @@ body {
   color: #5f6368;
   padding: 13px;
   cursor: pointer;
+}
+
+/* responses */
+
+.fs-header > nav {
+  justify-content: space-around;
+  transform: translate(0, 20px);
 }

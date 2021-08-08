@@ -1,28 +1,43 @@
 {% extends 'base.html' %} {% load static %} {% block css %}
-<link rel="stylesheet" href="{% static 'css/form.css' %}?6" />
+<link rel="stylesheet" href="{% static 'css/form.css' %}?7" />
 {% endblock %} {% block script %}
 <script src="{% static 'javascript/forms.js'%}?"></script>
 
 {% endblock %} {% block content %}
 <div class="fm-container">
-<header class="fm-header">
-  <div class="fm-header-top container">
-    <div class="fm-header-top-left">
-      <a href="{% url 'home' %}" class="fm-header-top-left-logo"><i class="fas fa-list"></i></a>
-      <input value="{{form.name}}" class="fm-header-top-left-title"></input>
+  <header class="fm-header">
+    <div class="fm-header-top container">
+      <div class="fm-header-top-left">
+        <a href="{% url 'home' %}" class="fm-header-top-left-logo"><i class="fas fa-list"></i></a>
+        <input value="{{form.name}}" class="fm-header-top-left-title"></input>
+      </div>
+      <div class="fm-header-top-right">
+        <a href="{% url 'logout' %}" class="btn btn-light fm-user">{{user.username|first}}</a>
+      </div>
     </div>
-    <div class="fm-header-top-right">
-      <a href="{% url 'logout' %}" class="btn btn-light fm-user">{{user.username|first}}</a>
+    <nav class="fm-header-bottom container">
+      <a class="fm-header-bottom-btn {% if menu == "edit" %} active{% endif %}" href="{% url 'form_edit' key=form.key %}">질문</a>
+      <a class="fm-header-bottom-btn {% if menu == "responses" %} active{% endif %}" href="{% url 'form_responses_summary' key=form.key  %}">응답</a>
+    </nav>
+  </header>
+  <div class="fm-form">
+    <div class="fm-form-box fs-header">
+      <div class="fs">응답 12개</div>
+      <nav class="fm-header-bottom container">
+        <a class="fm-header-bottom-btn {% if submenu == "summary" %} active{% endif %}" href="{% url 'form_responses_summary' key=form.key %}">요약</a>
+        <a class="fm-header-bottom-btn {% if submenu == "question" %} active{% endif %}" href="{% url 'form_responses_question' key=form.key  %}">질문</a>
+        <a class="fm-header-bottom-btn {% if submenu == "response" %} active{% endif %}" href="{% url 'form_responses_response' key=form.key  %}">개별 보기</a>
+      </nav>
+    </div>
+    <div class="fm-form-box fs-header">
+      <div class="fs">응답 12개</div>
+      <nav class="fm-header-bottom container">
+        <a class="fm-header-bottom-btn {% if submenu == "summary" %} active{% endif %}" href="{% url 'form_responses_summary' key=form.key %}">요약</a>
+        <a class="fm-header-bottom-btn {% if submenu == "question" %} active{% endif %}" href="{% url 'form_responses_question' key=form.key  %}">질문</a>
+        <a class="fm-header-bottom-btn {% if submenu == "response" %} active{% endif %}" href="{% url 'form_responses_response' key=form.key  %}">개별 보기</a>
+      </nav>
     </div>
   </div>
-  <nav class="fm-header-bottom container">
-    <a class="fm-header-bottom-btn {% if menu == "edit" %} active{% endif %}" href="{% url 'form_edit' key=form.key %}">질문</a>
-    <a class="fm-header-bottom-btn {% if menu == "responses" %} active{% endif %}" href="{% url 'form_responses_summary' key=form.key  %}">응답</a>
-  </nav>
-</header>
-<div class="fm-main">
-  <div class="fm-form">{{form}}</div>
-</div>
 </div>
 
 {% endblock %}

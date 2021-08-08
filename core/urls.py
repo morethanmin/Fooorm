@@ -11,6 +11,8 @@ urlpatterns = [
     path('forms/<str:key>/success', views.form_success, name="form_success"),
     path('forms/<str:key>/edit', views.form_edit, name="form_edit"),
     path('forms/<str:key>/responses/summary', views.form_responses_summary, name="form_responses_summary"),
+    path('forms/<str:key>/responses/question', views.form_responses_question, name="form_responses_question"),
+    path('forms/<str:key>/responses/response', views.form_responses_response, name="form_responses_response"),
 
     path('api/login', views.api_login, name="api_login"),
     path('api/signup', views.api_signup, name="api_signup"),
