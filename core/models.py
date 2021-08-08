@@ -33,3 +33,4 @@ class Responses(models.Model):
     key = models.CharField(max_length=20)
     form = models.ForeignKey(Form, on_delete = models.CASCADE, related_name = "response_to")
     answer = models.ManyToManyField(Answer, related_name = "response")
+    name = models.CharField(max_length=20)

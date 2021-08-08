@@ -143,7 +143,7 @@ def form_responses_question(request ,key) :
   responses = ResponsesModel.objects.filter(form = form)
   summarys = []
   for question in form.questions.all() : 
-    summarys.append({"question": question.name, "length": 0, "type": question.type, "answers": []})
+    summarys.append({"question": question.name, "length": 0, "type": question.type, "answers": [], "options": question.options.all()})
   for summary in summarys : 
     for response in responses:
       for answer in response.answer.all() : 

@@ -30,6 +30,7 @@ jquery django sqlite swiper bootstrap5
 - sqlite
 - toastr
 - jquery.cookie
+- chart.js
 
 ## Getting started
 

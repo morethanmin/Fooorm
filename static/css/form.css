@@ -131,7 +131,6 @@ body {
 .fm-form-select {
   border-radius: 5px;
   padding: 10px 20px;
-  margin-left: 20px;
 }
 
 .fm-form-options {
@@ -259,4 +258,10 @@ body {
 .fs-header > nav {
   justify-content: space-around;
   transform: translate(0, 20px);
+}
+
+/* questions */
+
+.fq-box {
+  display: none;
 }
