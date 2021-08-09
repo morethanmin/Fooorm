@@ -1,7 +1,7 @@
 {% extends 'base.html' %}{% load static %} {% block css %}
 <link rel="stylesheet" href="{% static 'css/form.css' %}?8" />
 {% endblock %} {% block script %}
-<script src="{% static 'javascript/summary.js'%}?1"></script>
+<script src="{% static 'javascript/summary.js'%}?2"></script>
 
 {% endblock %} {% block content %}
 <div class="fm-container">
@@ -9,7 +9,7 @@
     <div class="fm-header-top container">
       <div class="fm-header-top-left">
         <a href="{% url 'home' %}" class="fm-header-top-left-logo"><i class="fas fa-list"></i></a>
-        <input value="{{form.name}}" class="fm-header-top-left-title"></input>
+        <input value="{{form.name}}" class="fm-header-top-left-title" disabled></input>
       </div>
       <div class="fm-header-top-right">
         <a href="{% url 'logout' %}" class="btn btn-light fm-user">{{user.username|first}}</a>

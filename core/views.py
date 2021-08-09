@@ -142,33 +142,34 @@ def form_responses_question(request ,key) :
   else: 
     form = form[0]
   responses = ResponsesModel.objects.filter(form = form)
-  summarys = []
+  
+  questionsData = []
   for question in form.questions.all() : 
-    summarys.append({"question": question.name, "length": 0, "type": question.type, "answers": [], "options": question.options.all()})
-  for summary in summarys : 
-    for response in responses:
-      for answer in response.answer.all() : 
-        if answer.question.name == summary["question"]:
-          summary["length"] = summary["length"] + 1
-          if answer.question.type == "radio":
-            option = OptionsModel.objects.filter(id = answer.answer)
-            if option.count() == 0:
-              summary["answers"].append("삭제된 선택")
-            else: 
-              summary["answers"].append(option[0].name)
-          elif answer.question.type == "checkbox":
-            list_answer = answer.answer.split()
-            for item_answer in list_answer :
-              option = OptionsModel.objects.filter(id = item_answer)
-              if option.count() == 0:
-                summary["answers"].append("삭제된 선택")
-              else: 
-                summary["answers"].append(option[0].name)
-          else:
-            summary["answers"].append(answer.answer)
-  #text는 그대로 보여주고, checkbox, radio는 question option id별 개수 계산
+    questionName = question.name
+    questionType = question.type
+    answers = AnswerModel.objects.filter(question=question)
+    questionLength = answers.count()
+    if answers.count() == 0:
+      questionsData.append({"name": questionName, "type": questionType, "length":questionLength, "answer": "응답되지않은 내용"})
+    else:
+      questionAnswer = []
+      if questionType == "text":
+        for answer in answers:
+          questionAnswer.append(answer.answer)
+      if questionType == "radio":
+        for option in question.options.all():
+          optionName=option.name
+          optionCount=len(AnswerModel.objects.filter(answer=option.id))
+          questionAnswer.append({"name": optionName, "count":optionCount})
+      if questionType == "checkbox":
+        for option in question.options.all():
+          optionName=option.name
+          optionCount=len(AnswerModel.objects.filter(answer__icontains=str(option.id)))
+          questionAnswer.append({"name": optionName, "count":optionCount})
+      questionsData.append({"name": questionName, "type": questionType, "length":questionLength, "answer": questionAnswer})
 
-  return render(request, 'forms/_key/responses/question.html', {"menu": "responses", "submenu": "question", "form":form, "responses": responses, "summarys": summarys})
+    
+  return render(request, 'forms/_key/responses/question.html', {"menu": "responses", "submenu": "question", "form":form, "responses": responses, "questionsData":questionsData})
 
 def form_responses_response(request ,key) :
   if not request.user.is_authenticated:
@@ -188,10 +189,17 @@ def form_responses_response(request ,key) :
       questionType = question.type
       questionRequired = question.required
       answerData = ""
+      answerOrder = []
       for answer in response.answer.all():
         if answer.question == question:
-          answerData = answer.answer
-      questionData.append({"name":questionName, "type":questionType, "required": questionRequired, "options":question.options.all(), "answer": answerData})
+          if questionType== "checkbox":
+            answerArray = answer.answer.split(' ')
+            for id in answerArray:
+              answerOrder.append(OptionsModel.objects.filter(id = id)[0])
+              answerData = answer.answer
+          else:
+            answerData = answer.answer
+      questionData.append({"name":questionName, "type":questionType, "required": questionRequired, "options":question.options.all(), "answer": answerData, "order":answerOrder})
     responsesData.append(questionData)
   return render(request, 'forms/_key/responses/response.html', {"menu": "responses", "submenu": "response", "form": form, "responses": responses, "responsesData": responsesData})
 

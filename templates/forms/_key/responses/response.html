@@ -9,7 +9,7 @@
     <div class="fm-header-top container">
       <div class="fm-header-top-left">
         <a href="{% url 'home' %}" class="fm-header-top-left-logo"><i class="fas fa-list"></i></a>
-        <input value="{{form.name}}" class="fm-header-top-left-title"></input>
+        <input value="{{form.name}}" class="fm-header-top-left-title" disabled></input>
       </div>
       <div class="fm-header-top-right">
         <a href="{% url 'logout' %}" class="btn btn-light fm-user">{{user.username|first}}</a>
@@ -69,6 +69,14 @@
           {% endfor %}
         {% endif %}
         {% if question.type == "checkbox" %}
+          <div>
+            응답 순서
+          </div>
+          {% for order in question.order %}
+          <div>
+            {{order.name}}
+          </div>
+          {% endfor %}
           {% for option in question.options.all %}
           <div class="fm-type-option">
             <input class="form-checkbox fm-form-option" type="checkbox" disabled 
@@ -79,6 +87,7 @@
             </label>
           </div>
           {% endfor %}
+          
         {% endif %}
         </div>
       </div>

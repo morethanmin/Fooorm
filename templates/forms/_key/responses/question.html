@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% load static %} {% block css %}
 <link rel="stylesheet" href="{% static 'css/form.css' %}?10" />
 {% endblock %} {% block script %}
-<script src="{% static 'javascript/questions.js'%}?4"></script>
+<script src="{% static 'javascript/questions.js'%}?6"></script>
 
 {% endblock %} {% block content %}
 <div class="fm-container">
@@ -9,7 +9,7 @@
     <div class="fm-header-top container">
       <div class="fm-header-top-left">
         <a href="{% url 'home' %}" class="fm-header-top-left-logo"><i class="fas fa-list"></i></a>
-        <input value="{{form.name}}" class="fm-header-top-left-title"></input>
+        <input value="{{form.name}}" class="fm-header-top-left-title" disabled></input>
       </div>
       <div class="fm-header-top-right">
         <a href="{% url 'logout' %}" class="btn btn-light fm-user">{{user.username|first}}</a>
@@ -24,8 +24,8 @@
     <div class="fm-form-box fs-header">
       <div class="fm-form-header-title">응답 {{responses|length}}개</div>
       <select name="type" class="fq-select fm-form-select" >
-        {% for summary in summarys %}
-          <option value="{{forloop.counter}}">{{summary.question}}</option>
+        {% for question in questionsData %}
+          <option value="{{forloop.counter}}">{{question.name}}</option>
         {% endfor %}
       </select>
       <nav class="fm-header-bottom container">
@@ -34,53 +34,46 @@
         <a class="fm-header-bottom-btn {% if submenu == "response" %} active{% endif %}" href="{% url 'form_responses_response' key=form.key  %}">개별 보기</a>
       </nav>
     </div>
-    {% for summary in summarys %}
+    {% for question in questionsData %}
       <div id="" class="fq-{{forloop.counter}} fq-box fm-form-box">
-        <div>{{summary.question}}</div>
-        <div>응답{{summary.length}}개</div>
+        <div>{{question.name}}</div>
+        <div>응답{{question.length}}개</div>
       </div>
-      
-      {% if summary.type == "checkbox" %}
+      {% if question.type == "checkbox" %}
       <div id="" class="fq-{{forloop.counter}} fq-box">
-        {% for option in summary.options %}
+        {% for answer in question.answer %}
         <div id="" class=" fm-form-box">
           <input name="name" class="fm-form-option" type="checkbox" disabled></input>
-          <div>{{option.name}}</div>
+          <div>{{answer.name}}</div>
+          <div>{{answer.count}}</div>
         </div>
         {% endfor %}
-        <input name="fm-pie-{{forloop.counter}}" type="text" value="{{summary.answers|striptags}}" class="fm-pieVal"></input>
       </div>
       {% endif %}
-      {% if summary.type == "radio" %}
+      {% if question.type == "radio" %}
       <div id="" class="fq-{{forloop.counter}} fq-box">
-        {% for option in summary.options %}
-        <div  id="" class="fq-{{option.name}} fm-form-box">
+        {% for answer in question.answer %}
+        <div id="" class="fm-form-box">
           <input class="fm-form-option" type="radio" disabled></input>
-          <div>{{option.name}}</div>
+          <div>{{answer.name}}</div>
+          <div>{{answer.count}}</div>
         </div>
         {% endfor %}
-        <input name="fm-pie-{{forloop.counter}}" type="text" value="{{summary.answers|striptags}}" class="fm-pieVal"></input>
       </div>
       {% endif %}
-      {% if summary.type == "text" %}
+      {% if question.type == "text" %}
       <div id="" class="fq-{{forloop.counter}} fq-box">
-        {% for answer in summary.answers %}
-        <div id="" class=" fm-form-box">
-          {% if answer != "" %}
-          <div>
-          {{answer}}
-          </div>
-          {% endif %}
-          {% if answer == "" %}
-          <div>
-          응답하지 않은 질문
-          </div>
-          {% endif %}
+        {% for answer in question.answer %}
+        <div id="" class="fm-form-box">
+          <div>{{answer}}</div>
         </div>
         {% endfor %}
       </div>
       {% endif %}
     {% endfor %}
+
+
+    
   </div>
 </div>
 

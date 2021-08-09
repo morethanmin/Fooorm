@@ -6,6 +6,7 @@ $(function () {
       .slice(1, -1)
       .split(/,\s?/)
       .map((v) => v.replace("'", ''))
+      .map((v) => v.replace("'", ''))
     labels = Array.from(new Set(labels))
 
     //datasets
@@ -13,6 +14,7 @@ $(function () {
     this.value
       .slice(1, -1)
       .split(/,\s?/)
+      .map((v) => v.replace("'", ''))
       .map((v) => v.replace("'", ''))
       .map((e) => {
         labels.map((l, i) => {
