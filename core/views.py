@@ -180,7 +180,20 @@ def form_responses_response(request ,key) :
     form = form[0]
   responses = ResponsesModel.objects.filter(form = form)
   
-  return render(request, 'forms/_key/responses/response.html', {"menu": "responses", "submenu": "response", "form": form, "responses": responses})
+  responsesData = []
+  for response in responses:
+    questionData = []
+    for question in response.form.questions.all():
+      questionName = question.name
+      questionType = question.type
+      questionRequired = question.required
+      answerData = ""
+      for answer in response.answer.all():
+        if answer.question == question:
+          answerData = answer.answer
+      questionData.append({"name":questionName, "type":questionType, "required": questionRequired, "options":question.options.all(), "answer": answerData})
+    responsesData.append(questionData)
+  return render(request, 'forms/_key/responses/response.html', {"menu": "responses", "submenu": "response", "form": form, "responses": responses, "responsesData": responsesData})
 
 
 def api_login(request) :

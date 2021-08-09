@@ -44,27 +44,38 @@
       <div id="" class="fq-{{forloop.counter}} fq-box">
         {% for option in summary.options %}
         <div id="" class=" fm-form-box">
+          <input name="name" class="fm-form-option" type="checkbox" disabled></input>
           <div>{{option.name}}</div>
         </div>
         {% endfor %}
-        <input name="fm-pie-{{forloop.counter}}" type="hidden" value="{{summary.answers|striptags}}" class="fm-pieVal"></input>
+        <input name="fm-pie-{{forloop.counter}}" type="text" value="{{summary.answers|striptags}}" class="fm-pieVal"></input>
       </div>
       {% endif %}
       {% if summary.type == "radio" %}
       <div id="" class="fq-{{forloop.counter}} fq-box">
         {% for option in summary.options %}
-        <div id="" class=" fm-form-box">
+        <div  id="" class="fq-{{option.name}} fm-form-box">
+          <input class="fm-form-option" type="radio" disabled></input>
           <div>{{option.name}}</div>
         </div>
         {% endfor %}
-        <input name="fm-pie-{{forloop.counter}}" type="hidden" value="{{summary.answers|striptags}}" class="fm-pieVal"></input>
+        <input name="fm-pie-{{forloop.counter}}" type="text" value="{{summary.answers|striptags}}" class="fm-pieVal"></input>
       </div>
       {% endif %}
       {% if summary.type == "text" %}
       <div id="" class="fq-{{forloop.counter}} fq-box">
         {% for answer in summary.answers %}
         <div id="" class=" fm-form-box">
-          <div>{{answer}}</div>
+          {% if answer != "" %}
+          <div>
+          {{answer}}
+          </div>
+          {% endif %}
+          {% if answer == "" %}
+          <div>
+          응답하지 않은 질문
+          </div>
+          {% endif %}
         </div>
         {% endfor %}
       </div>

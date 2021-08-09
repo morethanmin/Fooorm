@@ -17,6 +17,7 @@ toastr.options = {
 }
 
 $(function () {
+  $('textarea.autosize').height($(this).prop('scrollHeight') + 12)
   $('textarea.autosize').on('keydown keyup', function () {
     $(this)
       .height(1)

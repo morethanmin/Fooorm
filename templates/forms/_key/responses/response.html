@@ -40,17 +40,9 @@
         <a class="fm-header-bottom-btn {% if submenu == "response" %} active{% endif %}" href="{% url 'form_responses_response' key=form.key  %}">개별 보기</a>
       </nav>
     </div>
-    
-    {% for response in responses %}
+    {% for response in responsesData %}
     <div class="fq-{{forloop.counter}} fq-box">
-      {% for question in form.questions.all %}
-      
-      {% for answer in response.answer.all %}
-      {% if question == answer.question %}
-      {{answer.answer}}
-      {% endif %}
-      {% endfor %}
-
+      {% for question in response %}
       <div class="fm-form-content fm-form-box">
         <div class="fm-form-centent-top">
           <div class="fm-form-input fm-form-centent-top-input">{{question.name}}</div>
@@ -59,14 +51,18 @@
         <div class="fm-form-centent-middle">
         {% if question.type == "text" %}
           <div class="fm-type-text">
-            <textarea name="{{question.id}}" value="{{form.description}}" class="fm-form-input fm-form-textarea autosize" placeholder="내용을 입력하세요" {% if question.required == True %}required{% endif %}></textarea>
+            <textarea class="fm-form-input fm-form-textarea autosize" disabled>{% if question.answer == "" %}응답하지 않음{% else %}{{question.answer}}{% endif %}</textarea>
           </div>
         {% endif %}
         {% if question.type == "radio" %}
           {% for option in question.options.all %}
           <div class="fm-type-option">
-            <input name="{{question.id}}" value="{{option.id}}" class="fm-form-option" id="{{option.id}}" type="radio" {% if question.required == True %}required{% endif %}></input>
-            <label class="fm-form-input" for="{{option.id}}">
+            <input class="fm-form-option" type="radio" disabled
+            {% if question.answer|floatformat:"0" == option.id|floatformat:"0" %}
+            checked
+            {% endif %}
+            ></input>
+            <label class="fm-form-input">
               {{option.name}}
             </label>
           </div>
@@ -75,13 +71,14 @@
         {% if question.type == "checkbox" %}
           {% for option in question.options.all %}
           <div class="fm-type-option">
-            <input data-id="{{option.id}}" class="form-checkbox fm-form-option" id="{{option.id}}" type="checkbox" ></input>
-            <label data-id="{{option.id}}" class="form-checkbox fm-form-input"  for="{{option.id}}">
+            <input class="form-checkbox fm-form-option" type="checkbox" disabled 
+            {% if option.id|stringformat:"i" in question.answer %} checked {% endif %}
+            ></input>
+            <label class="form-checkbox fm-form-input" >
               {{option.name}}
             </label>
           </div>
           {% endfor %}
-          <input name="{{question.id}}" class="fm-form-options" type="text" {% if question.required == True %}required{% endif %}></input>
         {% endif %}
         </div>
       </div>
