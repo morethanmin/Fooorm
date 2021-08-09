@@ -177,7 +177,6 @@ def form_responses_response(request ,key) :
     return HttpResponseRedirect(reverse('404'))
   else: 
     form = form[0]
-
   responses = ResponsesModel.objects.filter(form = form)
   return render(request, 'forms/_key/responses/response.html', {"menu": "responses", "submenu": "response", "form": form, "responses": responses})
 

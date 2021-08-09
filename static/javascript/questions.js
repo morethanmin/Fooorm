@@ -1,5 +1,5 @@
 $(function () {
-  $(`#fq-1`).show()
+  $(`.fq-1`).show()
   Inputs = $('.fm-pieVal')
   Inputs.map(function (i) {
     //labels
@@ -24,6 +24,6 @@ $(function () {
   $('.fq-select').on('input', function (e) {
     selectedValue = $('.fq-select option:selected').val()
     $(`.fq-box`).hide()
-    $(`#fq-${selectedValue}`).show()
+    $(`.fq-${selectedValue}`).show()
   })
 })

@@ -15,6 +15,7 @@
         <a href="{% url 'logout' %}" class="btn btn-light fm-user">{{user.username|first}}</a>
       </div>
     </div>
+    
     <nav class="fm-header-bottom container">
       <a class="fm-header-bottom-btn {% if menu == "edit" %} active{% endif %}" href="{% url 'form_edit' key=form.key %}">질문</a>
       <a class="fm-header-bottom-btn {% if menu == "responses" %} active{% endif %}" href="{% url 'form_responses_summary' key=form.key  %}">응답</a>
@@ -23,12 +24,21 @@
   <div class="fm-form">
     <div class="fm-form-box fs-header">
       <div class="fm-form-header-title">응답 {{responses|length}}개</div>
+      <select name="type" class="fq-select fm-form-select" >
+        {% for response in responses %}
+          {% if response.name == "" %}
+          <option value="익명{{forloop.counter}}">익명 응답자{{forloop.counter}}</option>
+          {% endif %}
+          {% if response.name != "" %}
+          <option value="{{response.name}}">{{response.name}}</option>
+          {% endif %}
+        {% endfor %}
+      </select>
       <nav class="fm-header-bottom container">
         <a class="fm-header-bottom-btn {% if submenu == "summary" %} active{% endif %}" href="{% url 'form_responses_summary' key=form.key %}">요약</a>
         <a class="fm-header-bottom-btn {% if submenu == "question" %} active{% endif %}" href="{% url 'form_responses_question' key=form.key  %}">질문</a>
         <a class="fm-header-bottom-btn {% if submenu == "response" %} active{% endif %}" href="{% url 'form_responses_response' key=form.key  %}">개별 보기</a>
       </nav>
-      {% comment %} 이곳에 select로 선택할 수있도록 {% endcomment %}
     </div>
     {% for question in form.questions.all %}
     <div class="fm-form-content fm-form-box">

@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% load static %} {% block css %}
 <link rel="stylesheet" href="{% static 'css/form.css' %}?10" />
 {% endblock %} {% block script %}
-<script src="{% static 'javascript/questions.js'%}?3"></script>
+<script src="{% static 'javascript/questions.js'%}?4"></script>
 
 {% endblock %} {% block content %}
 <div class="fm-container">
@@ -35,25 +35,40 @@
       </nav>
     </div>
     {% for summary in summarys %}
-      <div id="fq-{{forloop.counter}}" class="fq-box fm-form-box">
+      <div id="" class="fq-{{forloop.counter}} fq-box fm-form-box">
         <div>{{summary.question}}</div>
         <div>응답{{summary.length}}개</div>
-        
-        {% if summary.type == "checkbox" %}
-        <div>{{summary.options}}</div>
-        <input name="fm-pie-{{forloop.counter}}" type="hidden" value="{{summary.answers|striptags}}" class="fm-pieVal"></input>
-        {% endif %}
-        {% if summary.type == "radio" %}
-        <div>{{summary.options}}</div>
-        <input name="fm-pie-{{forloop.counter}}" type="hidden" value="{{summary.answers|striptags}}" class="fm-pieVal"></input>
-        {% endif %}
-        {% if summary.type == "text" %}
-        {% for answer in summary.answers %}
-        <div>{{answer}}</div>
-        {% endfor %}
-        {% endif %}
-        
       </div>
+      
+      {% if summary.type == "checkbox" %}
+      <div id="" class="fq-{{forloop.counter}} fq-box">
+        {% for option in summary.options %}
+        <div id="" class=" fm-form-box">
+          <div>{{option.name}}</div>
+        </div>
+        {% endfor %}
+        <input name="fm-pie-{{forloop.counter}}" type="hidden" value="{{summary.answers|striptags}}" class="fm-pieVal"></input>
+      </div>
+      {% endif %}
+      {% if summary.type == "radio" %}
+      <div id="" class="fq-{{forloop.counter}} fq-box">
+        {% for option in summary.options %}
+        <div id="" class=" fm-form-box">
+          <div>{{option.name}}</div>
+        </div>
+        {% endfor %}
+        <input name="fm-pie-{{forloop.counter}}" type="hidden" value="{{summary.answers|striptags}}" class="fm-pieVal"></input>
+      </div>
+      {% endif %}
+      {% if summary.type == "text" %}
+      <div id="" class="fq-{{forloop.counter}} fq-box">
+        {% for answer in summary.answers %}
+        <div id="" class=" fm-form-box">
+          <div>{{answer}}</div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
     {% endfor %}
   </div>
 </div>
