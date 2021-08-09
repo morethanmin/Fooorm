@@ -104,6 +104,7 @@ def form_responses_summary(request ,key) :
   else: 
     form = form[0]
   responses = ResponsesModel.objects.filter(form = form)
+
   summarys = []
   for question in form.questions.all() : 
     summarys.append({"question": question.name, "length": 0, "type": question.type, "answers": []})
@@ -178,6 +179,7 @@ def form_responses_response(request ,key) :
   else: 
     form = form[0]
   responses = ResponsesModel.objects.filter(form = form)
+  
   return render(request, 'forms/_key/responses/response.html', {"menu": "responses", "submenu": "response", "form": form, "responses": responses})
 
 
@@ -292,7 +294,6 @@ def api_form_id(request, key) :
         continue
       question = form.questions.get(id = i)
       for j in request.POST.getlist(i):
-        print(j)
         answer = AnswerModel(answer=j, question = question)
         answer.save()
         response.answer.add(answer)
