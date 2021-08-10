@@ -27,9 +27,9 @@ you can answer example survey [here](http://34.64.78.27:7000/forms/p6rRECBjzrrRe
 
 ## Tech and libraries
 
-- django
+- django 3.2.6
 - jquery
-- sqlite
+- sqlite 3.36.0
 - toastr
 - jquery.cookie
 - chart.js
@@ -39,6 +39,7 @@ you can answer example survey [here](http://34.64.78.27:7000/forms/p6rRECBjzrrRe
 - use git clone.
 
 ```bash
+$ git clone https://github.com/morethanmin/Fooorm.git
 $ cd Fooorm
 $ python3 manage.py runserver (or python manage.py runserver)
 ```
