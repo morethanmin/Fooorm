@@ -1,5 +1,5 @@
 {% extends 'base.html' %} {% load static %}{% block css %}
-<link rel="stylesheet" href="{% static 'css/form.css' %}?9" />
+<link rel="stylesheet" href="{% static 'css/form.css' %}?11" />
 {% endblock %} {% block script %}
 <script src="{% static 'javascript/response.js'%}?1"></script>
 
@@ -23,7 +23,10 @@
   </header>
   <div class="fm-form">
     <div class="fm-form-box fs-header">
-      <div class="fm-form-header-title">응답 {{responses|length}}개</div>
+       <div class="fr-form-header-title">
+        <div class="fm-form-header-title">응답 {{responses|length}}개</div>
+        <a href="/forms/{{form.key}}/download" class="btn">다운로드</a>
+      </div>
       <select name="type" class="fq-select fm-form-select" >
         {% for response in responses %}
           {% if response.name == "" %}

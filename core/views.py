@@ -6,6 +6,7 @@ from .models import User as UserModel, Options as OptionsModel, Questions as Que
 import json
 import random
 import string
+import csv
 
 def home(request) :
   if not request.user.is_authenticated:
@@ -150,26 +151,80 @@ def form_responses_question(request ,key) :
     answers = AnswerModel.objects.filter(question=question)
     questionLength = answers.count()
     if answers.count() == 0:
-      questionsData.append({"name": questionName, "type": questionType, "length":questionLength, "answer": "응답되지않은 내용"})
+      questionsData.append({"name": questionName, "type": questionType, "length":questionLength, "answer": []})
     else:
       questionAnswer = []
       if questionType == "text":
         for answer in answers:
-          questionAnswer.append(answer.answer)
+          if answer.answer == "":
+            questionAnswer.append("응답하지 않음")
+          else:
+            questionAnswer.append(answer.answer)
       if questionType == "radio":
         for option in question.options.all():
           optionName=option.name
-          optionCount=len(AnswerModel.objects.filter(answer=option.id))
+          optionCount=(AnswerModel.objects.filter(answer=option.id)).count()
           questionAnswer.append({"name": optionName, "count":optionCount})
       if questionType == "checkbox":
         for option in question.options.all():
           optionName=option.name
-          optionCount=len(AnswerModel.objects.filter(answer__icontains=str(option.id)))
+          optionCount=(AnswerModel.objects.filter(answer__icontains=str(option.id))).count()
           questionAnswer.append({"name": optionName, "count":optionCount})
       questionsData.append({"name": questionName, "type": questionType, "length":questionLength, "answer": questionAnswer})
 
     
   return render(request, 'forms/_key/responses/question.html', {"menu": "responses", "submenu": "question", "form":form, "responses": responses, "questionsData":questionsData})
+
+def form_download(request,key):
+  
+  form = FormModel.objects.filter(key = key)
+  if form.count() == 0:
+    return HttpResponseRedirect(reverse('404'))
+  else: 
+    form = form[0]
+  response = HttpResponse(
+      content_type='text/csv',
+      headers={'Content-Disposition': 'attachment; filename="{name}.csv"'.format(name=form.name).encode()},
+  )
+  response.write(u'\ufeff'.encode('utf8'))
+  csvHeader=[]
+  for question in form.questions.all():
+    csvHeader.append(question.name)
+  writer = csv.writer(response)
+  writer.writerow(csvHeader)
+  res = ResponsesModel.objects.filter(form = form)
+  for re in res:
+    #one row start
+    csvResponse=[]
+    for questionName in csvHeader:
+      for answer in re.answer.all():
+        if answer.question.name == questionName:
+          if answer.question.type == "text":
+            if answer.answer == "":
+              csvResponse.append("응답하지 않음")
+            else:
+              csvResponse.append(answer.answer)
+          if answer.question.type == "radio":
+            optionData = OptionsModel.objects.filter(id = answer.answer)
+            if optionData.count() == 0:
+              csvResponse.append("삭제된 응답")
+            else:
+              csvResponse.append(optionData[0].name)
+          if answer.question.type == "checkbox":
+            answerArray = answer.answer.split(' ')
+            answerNameArray = []
+            if answerArray[0] != '':
+              for id in answerArray:
+                optionData = OptionsModel.objects.filter(id = id)
+                if optionData.count() == 0:
+                  answerNameArray.append("삭제된 응답")
+                else:
+                  answerNameArray.append(optionData[0].name)
+            csvResponse.append(", ".join(answerNameArray))
+    writer.writerow(csvResponse)
+
+  return response
+
 
 def form_responses_response(request ,key) :
   if not request.user.is_authenticated:

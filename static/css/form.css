@@ -153,6 +153,11 @@ body {
   font-size: 1.8rem;
 }
 
+.fr-form-header-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .fm-form-header-desc {
   font-size: 1rem;
   resize: none;
