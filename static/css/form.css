@@ -150,6 +150,7 @@ body {
 /* header */
 
 .fm-form-header-title {
+  color: #202124;
   font-size: 1.8rem;
 }
 
@@ -258,11 +259,48 @@ body {
   cursor: pointer;
 }
 
+/* summery */
+
+.fr-canvas-container {
+  position: relative;
+  height: 200px;
+}
+.fr-canvas {
+  margin: auto 0;
+}
+
+.fr-question-title {
+  color: #202124;
+}
+.fr-question-sub {
+  color: #202124;
+  font-size: 0.8rem;
+  margin-bottom: 10px;
+}
+
+.fr-text {
+  background-color: #f8f9fa;
+  color: #202124;
+  padding: 10px;
+  border-radius: 10px;
+}
+
 /* responses */
 
 .fs-header > nav {
   justify-content: space-around;
   transform: translate(0, 20px);
+}
+
+.fr-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.fr-footer {
+  border-top: 1px solid #dadce0;
+  padding-top: 10px;
 }
 
 /* questions */

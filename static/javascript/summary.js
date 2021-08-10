@@ -48,7 +48,7 @@ $(function () {
         ],
       },
       options: {
-        responsive: true,
+        maintainAspectRatio: false,
         plugins: {
           legend: {
             position: 'right',
@@ -59,5 +59,8 @@ $(function () {
         },
       },
     })
+  })
+  $('.fr-down').click(function (e) {
+    toastr.success('성공적으로 다운로드 하였습니다.')
   })
 })

@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% load static %}{% block css %}
 <link rel="stylesheet" href="{% static 'css/form.css' %}?11" />
 {% endblock %} {% block script %}
-<script src="{% static 'javascript/response.js'%}?1"></script>
+<script src="{% static 'javascript/response.js'%}?2"></script>
 
 {% endblock %} {% block content %}
 <div class="fm-container">
@@ -25,7 +25,7 @@
     <div class="fm-form-box fs-header">
        <div class="fr-form-header-title">
         <div class="fm-form-header-title">응답 {{responses|length}}개</div>
-        <a href="/forms/{{form.key}}/download" class="btn">다운로드</a>
+        <a href="/forms/{{form.key}}/download" class="fr-down btn">다운로드</a>
       </div>
       <select name="type" class="fq-select fm-form-select" >
         {% for response in responses %}
@@ -48,7 +48,7 @@
       {% for question in response %}
       <div class="fm-form-content fm-form-box">
         <div class="fm-form-centent-top">
-          <div class="fm-form-input fm-form-centent-top-input">{{question.name}}</div>
+          <div class="fm-form-input fm-form-centent-top-input ">{{question.name}}</div>
           <div class="fm-form-required">{% if question.required == True %}*{% endif %}</div>
         </div>
         <div class="fm-form-centent-middle">
@@ -72,14 +72,12 @@
           {% endfor %}
         {% endif %}
         {% if question.type == "checkbox" %}
-          <div>
-            응답 순서
-          </div>
+          
+          <div class="fr-question-sub">
           {% for order in question.order %}
-          <div>
             {{order.name}}
-          </div>
           {% endfor %}
+          </div>
           {% for option in question.options.all %}
           <div class="fm-type-option">
             <input class="form-checkbox fm-form-option" type="checkbox" disabled 

@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% load static %} {% block css %}
-<link rel="stylesheet" href="{% static 'css/form.css' %}?11" />
+<link rel="stylesheet" href="{% static 'css/form.css' %}?12" />
 {% endblock %} {% block script %}
-<script src="{% static 'javascript/questions.js'%}?7"></script>
+<script src="{% static 'javascript/questions.js'%}?8"></script>
 
 {% endblock %} {% block content %}
 <div class="fm-container">
@@ -24,7 +24,7 @@
     <div class="fm-form-box fs-header">
       <div class="fr-form-header-title">
         <div class="fm-form-header-title">응답 {{responses|length}}개</div>
-        <a href="/forms/{{form.key}}/download" class="btn">다운로드</a>
+        <a href="/forms/{{form.key}}/download" class="fr-down btn">다운로드</a>
       </div>
       <select name="type" class="fq-select fm-form-select" >
         {% for question in questionsData %}
@@ -39,16 +39,18 @@
     </div>
     {% for question in questionsData %}
       <div id="" class="fq-{{forloop.counter}} fq-box fm-form-box">
-        <div>{{question.name}}</div>
-        <div>응답{{question.length}}개</div>
+        <div class="fr-question-title">{{question.name}}</div>
+        <div class="fr-question-sub">응답{{question.length}}개</div>
       </div>
       {% if question.type == "checkbox" %}
       <div id="" class="fq-{{forloop.counter}} fq-box">
         {% for answer in question.answer %}
         <div id="" class=" fm-form-box">
-          <input name="name" class="fm-form-option" type="checkbox" disabled></input>
-          <div>{{answer.name}}</div>
-          <div>{{answer.count}}</div>
+          <div class="fr-input">
+            <input name="name" class="fm-form-option" type="checkbox" disabled></input>
+            <div class="fr-question-title">{{answer.name}}</div>
+          </div>
+          <div class="fr-footer fr-question-sub">응답 {{answer.count}}개</div>
         </div>
         {% endfor %}
       </div>
@@ -57,9 +59,11 @@
       <div id="" class="fq-{{forloop.counter}} fq-box">
         {% for answer in question.answer %}
         <div id="" class="fm-form-box">
-          <input class="fm-form-option" type="radio" disabled></input>
-          <div>{{answer.name}}</div>
-          <div>{{answer.count}}</div>
+          <div class="fr-input">
+            <input class="fm-form-option" type="radio" disabled></input>
+            <div class="fr-question-title">{{answer.name}}</div>
+          </div>
+          <div class="fr-footer fr-question-sub">응답 {{answer.count}}개</div>
         </div>
         {% endfor %}
       </div>

@@ -188,10 +188,13 @@ def form_download(request,key):
   )
   response.write(u'\ufeff'.encode('utf8'))
   csvHeader=[]
+  csvSubHeader=[]
   for question in form.questions.all():
     csvHeader.append(question.name)
+    csvSubHeader.append(question.type)
   writer = csv.writer(response)
   writer.writerow(csvHeader)
+  writer.writerow(csvSubHeader)
   res = ResponsesModel.objects.filter(form = form)
   for re in res:
     #one row start
@@ -249,9 +252,10 @@ def form_responses_response(request ,key) :
         if answer.question == question:
           if questionType== "checkbox":
             answerArray = answer.answer.split(' ')
-            for id in answerArray:
-              answerOrder.append(OptionsModel.objects.filter(id = id)[0])
-              answerData = answer.answer
+            if answerArray[0] != '':
+              for id in answerArray:
+                answerOrder.append(OptionsModel.objects.filter(id = id)[0])
+                answerData = answer.answer
           else:
             answerData = answer.answer
       questionData.append({"name":questionName, "type":questionType, "required": questionRequired, "options":question.options.all(), "answer": answerData, "order":answerOrder})

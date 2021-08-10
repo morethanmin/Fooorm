@@ -1,7 +1,7 @@
 {% extends 'base.html' %}{% load static %} {% block css %}
-<link rel="stylesheet" href="{% static 'css/form.css' %}?11" />
+<link rel="stylesheet" href="{% static 'css/form.css' %}?12" />
 {% endblock %} {% block script %}
-<script src="{% static 'javascript/summary.js'%}?2"></script>
+<script src="{% static 'javascript/summary.js'%}?5"></script>
 
 {% endblock %} {% block content %}
 <div class="fm-container">
@@ -24,7 +24,7 @@
     <div class="fm-form-box fs-header">
        <div class="fr-form-header-title">
         <div class="fm-form-header-title">응답 {{responses|length}}개</div>
-        <a href="/forms/{{form.key}}/download" class="btn">다운로드</a>
+        <a href="/forms/{{form.key}}/download" class="fr-down btn">다운로드</a>
       </div>
       <nav class="fm-header-bottom container">
         <a class="fm-header-bottom-btn {% if submenu == "summary" %} active{% endif %}" href="{% url 'form_responses_summary' key=form.key %}">요약</a>
@@ -34,19 +34,23 @@
     </div>
     {% for summary in summarys %}
       <div class="fm-form-box">
-        <div>{{summary.question}}</div>
-        <div>응답{{summary.length}}개</div>
+        <div class="fr-question-title">{{summary.question}}</div>
+        <div class="fr-question-sub">응답{{summary.length}}개</div>
         {% if summary.type == "checkbox" %}
         <input name="fm-pie-{{forloop.counter}}" type="hidden" value="{{summary.answers|striptags}}" class="fm-pieVal"></input>
-        <canvas id="fm-pie-{{forloop.counter}}"></canvas>
+        <div class="fr-canvas-container">
+          <canvas clasee="fr-canvas" id="fm-pie-{{forloop.counter}}"></canvas>
+        </div>
         {% endif %}
         {% if summary.type == "radio" %}
         <input name="fm-pie-{{forloop.counter}}" type="hidden" value="{{summary.answers|striptags}}" class="fm-pieVal"></input>
-        <canvas id="fm-pie-{{forloop.counter}}"></canvas>
+        <div class="fr-canvas-container">
+          <canvas clasee="fr-canvas" id="fm-pie-{{forloop.counter}}"></canvas>
+        </div>
         {% endif %}
         {% if summary.type == "text" %}
         {% for answer in summary.answers %}
-        <div>{{answer}}</div>
+        <div class="fr-text">{{answer}}</div>
         {% endfor %}
         {% endif %}
         
