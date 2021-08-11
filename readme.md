@@ -1,5 +1,3 @@
-jquery django sqlite swiper bootstrap5
-
 # fooorm
 
 > 설문폼 서비스
