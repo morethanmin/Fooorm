@@ -8,7 +8,9 @@ jquery django sqlite swiper bootstrap5
 
 ## Live demo
 
--
+you can make survey [here](http://34.64.78.27:7000/)
+
+you can answer example survey [here](http://34.64.78.27:7000/forms/p6rRECBjzrrReNJ4XSdF)
 
 ## Preview
 
@@ -25,9 +27,9 @@ jquery django sqlite swiper bootstrap5
 
 ## Tech and libraries
 
-- django
+- django 3.2.6
 - jquery
-- sqlite
+- sqlite 3.36.0
 - toastr
 - jquery.cookie
 - chart.js
@@ -37,6 +39,7 @@ jquery django sqlite swiper bootstrap5
 - use git clone.
 
 ```bash
+$ git clone https://github.com/morethanmin/Fooorm.git
 $ cd Fooorm
 $ python3 manage.py runserver (or python manage.py runserver)
 ```
