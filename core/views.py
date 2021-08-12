@@ -272,7 +272,10 @@ def form_responses_response(request ,key) :
             answerArray = answer.answer.split(' ')
             if answerArray[0] != '':
               for id in answerArray:
-                answerOrder.append(OptionsModel.objects.filter(id = id)[0])
+                #예외처리
+                optionArray = OptionsModel.objects.filter(id = id)
+                if optionArray.count() != 0:
+                  answerOrder.append(optionArray[0])
                 answerData = answer.answer
           else:
             answerData = answer.answer
