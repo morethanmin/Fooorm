@@ -4,9 +4,9 @@
 
 ## Live demo
 
-you can make survey [here](http://34.64.78.27:7000/)
+you can make survey [here](http://34.64.167.215:7000/)
 
-you can answer example survey [here](http://34.64.78.27:7000/forms/p6rRECBjzrrReNJ4XSdF)
+you can answer example survey [here](http://34.64.167.215:7000/forms/p6rRECBjzrrReNJ4XSdF)
 
 test user : (id: mini4614, pw: asd123)
 
