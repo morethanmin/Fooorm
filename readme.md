@@ -1,8 +1,6 @@
 # fooorm
 
 > 설문폼 서비스
->
-> 장고를 학습하고 프레임워크의 소중함을 깨달을 수 있었던 토이 프로젝트입니다.
 
 ## Live demo
 
@@ -10,7 +8,7 @@ you can make survey [here](http://34.64.78.27:7000/)
 
 you can answer example survey [here](http://34.64.78.27:7000/forms/p6rRECBjzrrReNJ4XSdF)
 
-테스트 계정 (id: mini4614, pw: asd123)
+test user : (id: mini4614, pw: asd123)
 
 ## Preview
 
