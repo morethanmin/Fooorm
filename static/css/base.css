@@ -76,3 +76,23 @@ input:disabled {
   border-radius: 5px;
   cursor: pointer;
 }
+
+.btn-circle {
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.btn-circle:hover {
+  background: rgba(0, 0, 0, 0.07);
+}
+
+.fs-menu {
+  width: 20px;
+  height: 20px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -8,12 +8,16 @@ import random
 import string
 import csv
 
+# 메인
 def home(request) :
+  #예외처리
   if not request.user.is_authenticated:
     return HttpResponseRedirect(reverse('login'))
   return HttpResponseRedirect(reverse('forms'))
 
+# 로그인
 def login(request) :
+  #예외처리
   if request.user.is_authenticated:
     return HttpResponseRedirect(reverse('forms'))
   if request.method == "POST":
@@ -27,12 +31,14 @@ def login(request) :
       return render(request, "login.html", {"message": "아이디 또는 비밀번호가 옳지 않습니다."})
   return render(request, 'login.html')
 
+# 로그아웃
 def logout(request) :
   auth.logout(request)
   return HttpResponseRedirect(reverse('home'))
 
-
+# 회원가입
 def signup(request) :
+  #예외처리
   if request.user.is_authenticated:
       return HttpResponseRedirect(reverse('forms'))
   if request.method == "POST":
@@ -40,6 +46,7 @@ def signup(request) :
     email = request.POST['email']
     password = request.POST['password']
     passwordConfirm = request.POST['passwordConfirm']
+    #예외 처리(validations)
     if len(username) < 5 :
       return render(request, "signup.html", {
           "message": "아이디는 6자 이상이어야합니다.",
@@ -74,17 +81,22 @@ def signup(request) :
     return HttpResponseRedirect(reverse('home'))
   return render(request, 'signup.html')
 
+#메인-forms
 def forms(request) :
+  #예외 처리
   if not request.user.is_authenticated:
     return HttpResponseRedirect(reverse('login'))
   forms = FormModel.objects.filter(creator = request.user).order_by('-created_at')
   return render(request, 'forms/index.html',{"forms": forms})
 
+#상세-form (유저 설문 페이지)
 def form(request,key) :
   form = FormModel.objects.filter(key = key)
   return render(request, 'forms/_key/index.html',{"form": form[0]})
 
+#상세-form (관리자 설문 페이지)
 def form_edit(request,key) :
+  #예외 처리
   if not request.user.is_authenticated:
     return HttpResponseRedirect(reverse('login'))
   form = FormModel.objects.filter(key = key)
@@ -93,10 +105,11 @@ def form_edit(request,key) :
 
 
 def form_success(request,key) :
-
   return render(request, 'forms/_key/success.html')
 
+
 def form_responses_summary(request ,key) :
+  #예외 처리
   if not request.user.is_authenticated:
     return HttpResponseRedirect(reverse('login'))
   form = (FormModel.objects.filter(key = key))
@@ -107,6 +120,7 @@ def form_responses_summary(request ,key) :
   responses = ResponsesModel.objects.filter(form = form)
 
   summarys = []
+  #[{ qeustion: str, length: num, type: str, answer: array}]
   for question in form.questions.all() : 
     summarys.append({"question": question.name, "length": 0, "type": question.type, "answers": []})
   for summary in summarys : 
@@ -130,11 +144,11 @@ def form_responses_summary(request ,key) :
                 summary["answers"].append(option[0].name)
           else:
             summary["answers"].append(answer.answer)
-  #text는 그대로 보여주고, checkbox, radio는 퍼센트로 계산
 
   return render(request, 'forms/_key/responses/summary.html', {"menu": "responses", "submenu": "summary", "form":form, "responses": responses, "summarys": summarys })
 
 def form_responses_question(request ,key) :
+  #예외처리
   if not request.user.is_authenticated:
     return HttpResponseRedirect(reverse('login'))
   form = (FormModel.objects.filter(key = key))
@@ -145,6 +159,7 @@ def form_responses_question(request ,key) :
   responses = ResponsesModel.objects.filter(form = form)
   
   questionsData = []
+  #[{name:str, type: str, length: num, answer: array}]
   for question in form.questions.all() : 
     questionName = question.name
     questionType = question.type
@@ -176,8 +191,8 @@ def form_responses_question(request ,key) :
   return render(request, 'forms/_key/responses/question.html', {"menu": "responses", "submenu": "question", "form":form, "responses": responses, "questionsData":questionsData})
 
 def form_download(request,key):
-  
   form = FormModel.objects.filter(key = key)
+  #예외처리
   if form.count() == 0:
     return HttpResponseRedirect(reverse('404'))
   else: 
@@ -186,6 +201,7 @@ def form_download(request,key):
       content_type='text/csv',
       headers={'Content-Disposition': 'attachment; filename="{name}.csv"'.format(name=form.name).encode()},
   )
+  #한글 인코딩
   response.write(u'\ufeff'.encode('utf8'))
   csvHeader=[]
   csvSubHeader=[]
@@ -230,6 +246,7 @@ def form_download(request,key):
 
 
 def form_responses_response(request ,key) :
+  #예외처리
   if not request.user.is_authenticated:
     return HttpResponseRedirect(reverse('login'))
   form = FormModel.objects.filter(key = key)
@@ -240,6 +257,7 @@ def form_responses_response(request ,key) :
   responses = ResponsesModel.objects.filter(form = form)
   
   responsesData = []
+  #[{name: str, type: str, required: boolean, options: array}]
   for response in responses:
     questionData = []
     for question in response.form.questions.all():
@@ -263,64 +281,11 @@ def form_responses_response(request ,key) :
   return render(request, 'forms/_key/responses/response.html', {"menu": "responses", "submenu": "response", "form": form, "responses": responses, "responsesData": responsesData})
 
 
-def api_login(request) :
-  if request.user.is_authenticated:
-    return HttpResponseRedirect(reverse('forms'))
-  if request.method == "POST":
-    username = request.POST['username']
-    password = request.POST['password']
-    user = auth.authenticate(request, username = username, password = password)
-    if user is not None:
-      auth.login(request, user)
-      return HttpResponseRedirect(reverse('home'))
-    else:
-      return render(request, "login.html", {"message": "아이디 또는 비밀번호가 옳지 않습니다."})
-
-
-def api_signup(request) :
-  if request.user.is_authenticated:
-      return HttpResponseRedirect(reverse('forms'))
-  if request.method == "POST":
-    username = request.POST['username']
-    email = request.POST['email']
-    password = request.POST['password']
-    passwordConfirm = request.POST['passwordConfirm']
-    if len(username) < 5 :
-      return render(request, "signup.html", {
-          "message": "아이디는 6자 이상이어야합니다.",
-    })
-    if any(sym in username for sym in '!@#$%^&*'):
-      return render(request, "signup.html", {
-          "message": "특수문자를 사용할 수 없습니다."
-    })
-    if len(UserModel.objects.filter(username=username))==1:
-      return render(request, "signup.html", {
-          "message": "이미 존재하는 아이디입니다."
-    })
-    if len(UserModel.objects.filter(email=email))==1:
-      return render(request, "signup.html", {
-          "message": "이미 존재하는 이메일입니다."
-    })
-    if len(password) < 5 :
-      return render(request, "signup.html", {
-          "message": "비밀번호는 6자 이상이어야합니다.",
-          "username": username,
-          "email": email,
-    })
-    if password != passwordConfirm:
-      return render(request, "signup.html", {
-          "message": "비밀번호가 서로 다릅니다.",
-          "username": username,
-          "email": email,
-    })
-    user = UserModel.objects.create_user(username = username, email = email, password = password, )
-    user.save()
-    auth.login(request, user)
-    return HttpResponseRedirect(reverse('home'))
-
 def api_form(request) :
+  #예외처리
   if not request.user.is_authenticated:
     return HttpResponseRedirect(reverse('login'))
+  #설문지 생성
   if request.method == "POST":
     data = json.loads(request.body)
     name = data["name"]
@@ -337,6 +302,7 @@ def api_form(request) :
     form.questions.add(question)
     form.save()
     return JsonResponse({"message": "Sucess", "key": key})
+  #설문지 수정
   if request.method == "PUT":
     data = json.loads(request.body)
     form = FormModel.objects.filter(key = data["key"])
@@ -362,9 +328,11 @@ def api_form(request) :
 
 def api_form_id(request, key) :
   form = FormModel.objects.filter(key = key)
+  #예외 처리
   if form.count() == 0:
     return HttpResponseRedirect(reverse('404'))
   else: form = form[0]
+  #설문지 응답 요청
   if request.method == "POST":
     res_key = ''.join(random.choice(string.ascii_letters + string.digits) for x in range(20))
     response = ResponsesModel(key = res_key, form = form)
@@ -381,8 +349,10 @@ def api_form_id(request, key) :
   return HttpResponseRedirect(reverse('form_success', kwargs={'key': key}))
 
 def api_question(request) :
+  #예외처리
   if not request.user.is_authenticated:
     return HttpResponseRedirect(reverse('login'))
+  #질문 생성
   if request.method == "POST":
     data = json.loads(request.body)
     options = OptionsModel(name = "새로운 옵션")
@@ -401,11 +371,12 @@ def api_question(request) :
 
 
 def api_question_id(request,id) :
+  #예외처리
   if not request.user.is_authenticated:
     return HttpResponseRedirect(reverse('login'))
+  #질문 수정
   if request.method == "PUT":
     data = json.loads(request.body)
-
     question = QuestionsModel.objects.filter(id = id)
     if question.count() == 0:
       return HttpResponseRedirect(reverse("404"))
@@ -418,7 +389,7 @@ def api_question_id(request,id) :
       question.type = data["value"]
     question.save()
     return JsonResponse({'message': "success"})
-  
+  #질문 삭제
   if request.method == "DELETE":
     question = QuestionsModel.objects.filter(id = id)
     if question.count() == 0:
@@ -428,6 +399,7 @@ def api_question_id(request,id) :
     return JsonResponse({'message': "success"})
 
 def api_option(request) :
+  #옵션 생성
   if request.method == "POST":
     data = json.loads(request.body)
     option = OptionsModel(name = data["name"])
@@ -441,10 +413,9 @@ def api_option(request) :
     return JsonResponse({'message': "success"})
 
 def api_option_id(request, id) :
-
+  #옵션 수정
   if request.method == "PUT":
     data = json.loads(request.body)
-
     option = OptionsModel.objects.filter(id = id)
     if option.count() == 0:
       return HttpResponseRedirect(reverse("404"))
@@ -453,7 +424,7 @@ def api_option_id(request, id) :
       option.name = data["value"]
     option.save()
     return JsonResponse({'message': "success"})
-
+  #옵션 삭제
   if request.method == "DELETE":
     option = OptionsModel.objects.filter(id = id)
     if option.count() == 0:

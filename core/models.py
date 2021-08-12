@@ -13,24 +13,24 @@ class Questions(models.Model):
     type = models.CharField(max_length=20)
     required = models.BooleanField(default= False)
     key = models.CharField(max_length = 5000, blank = True)
-    options = models.ManyToManyField(Options, related_name = "options")
+    options = models.ManyToManyField(Options)
 
 class Answer(models.Model):
     answer = models.CharField(max_length=5000)
-    question = models.ForeignKey(Questions, on_delete = models.CASCADE ,related_name = "answer_to")
+    question = models.ForeignKey(Questions, on_delete = models.CASCADE)
 
 class Form(models.Model):
     key = models.CharField(max_length=30)
     name = models.CharField(max_length=200)
     title = models.CharField(max_length=200)
     description = models.CharField(max_length=10000, blank = True)
-    creator = models.ForeignKey(User, on_delete = models.CASCADE, related_name = "creator")
+    creator = models.ForeignKey(User, on_delete = models.CASCADE)
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now = True)
-    questions = models.ManyToManyField(Questions, related_name = "questions")
+    questions = models.ManyToManyField(Questions)
 
 class Responses(models.Model):
     key = models.CharField(max_length=20)
-    form = models.ForeignKey(Form, on_delete = models.CASCADE, related_name = "response_to")
-    answer = models.ManyToManyField(Answer, related_name = "response")
+    form = models.ForeignKey(Form, on_delete = models.CASCADE)
+    answer = models.ManyToManyField(Answer)
     name = models.CharField(max_length=20)

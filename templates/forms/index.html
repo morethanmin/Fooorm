@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% load static %} {% block css %}
-<link rel="stylesheet" href="{% static 'css/forms.css' %}?57" />
+<link rel="stylesheet" href="{% static 'css/forms.css' %}?59" />
 {% endblock %} {% block script %}
-<script src="{% static 'javascript/forms.js'%}?2"></script>
+<script src="{% static 'javascript/forms.js'%}?3"></script>
 
 {% endblock %} {% block content %}
 <div class="fs-container">
@@ -11,7 +11,9 @@
       <div class="fs-header-left-title">Fooorms</div>
     </a>
     <div class="fs-header-right">
-      <a href="{% url 'logout' %}" class="btn btn-light fs-user">{{user.username|first}}</a>
+      <div class="btn-circle">
+        <a href="{% url 'logout' %}" class="btn btn-light fs-user">{{user.username|first}}</a>
+      </div>
     </div>
   </header>
 
@@ -38,12 +40,12 @@
           <div></div>
         </div>
         {% for item in forms %}
-        <a href="{% url 'form_edit' key=item.key %}" class="fs-table-row">
-          <div class="fs-table-row-title">{{item.name}}</div>
-          <div>{{item.created_at|date:"Y-m-d"}}</div>
-          <div>{{item.updated_at|date:"Y-m-d"}}</div>
-          <div class="fs-table-menu"><i class="fas fa-ellipsis-v"></i></div>
-        </a>
+        <div class="fs-table-row">
+          <a href="{% url 'form_edit' key=item.key %}" class="fs-table-row-title">{{item.name}}</a>
+          <a href="{% url 'form_edit' key=item.key %}">{{item.created_at|date:"Y-m-d"}}</a>
+          <a href="{% url 'form_edit' key=item.key %}">{{item.updated_at|date:"Y-m-d"}}</a>
+          <div class="btn-circle fs-table-menu"><i class="fs-menu fas fa-ellipsis-v"></i></div>
+        </div>
         {% endfor %}
       </div>
     </div>
