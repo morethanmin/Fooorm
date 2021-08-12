@@ -10,6 +10,8 @@ you can make survey [here](http://34.64.78.27:7000/)
 
 you can answer example survey [here](http://34.64.78.27:7000/forms/p6rRECBjzrrReNJ4XSdF)
 
+테스트 계정 (id: mini4614, pw: asd123)
+
 ## Preview
 
 ![image](https://user-images.githubusercontent.com/72514247/128608326-8d6143c5-4e53-4dd0-b195-a6e1cd2daac1.png)
