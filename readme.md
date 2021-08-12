@@ -10,18 +10,23 @@ you can make survey [here](http://34.64.78.27:7000/)
 
 you can answer example survey [here](http://34.64.78.27:7000/forms/p6rRECBjzrrReNJ4XSdF)
 
+테스트 계정 (id: mini4614, pw: asd123)
+
 ## Preview
 
 ![image](https://user-images.githubusercontent.com/72514247/128608326-8d6143c5-4e53-4dd0-b195-a6e1cd2daac1.png)
 
 ## Features
 
+- 설문지 생성
+- 질문 생성 (택스트, 객관식, 체크박스)
+- 설문지 공유
+- 응답 결과 확인 (요약, 질문, 개별보기)
+- 응답 결과 .csv형식 다운로드
+
 ## 개발할 기능
 
-- 문항 모델 (제목, 타입(), 타입에 따른 content)
-- 생성된 문항을 볼 수 있는 사용자 폼 (문항, 연락처 기입후 확인 누르면 제출)
-- 문항을 생성, 수정, 삭제, 볼수 있는 관리자 폼
-  - 관리자 폼 (문항별 응답자 수, 선택지별 응답 비율, 응답자별 문항 응답)
+- 설문지 검색
 
 ## Tech and libraries
 
