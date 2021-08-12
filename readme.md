@@ -10,7 +10,7 @@ you can make survey [here](http://34.64.78.27:7000/)
 
 you can answer example survey [here](http://34.64.78.27:7000/forms/p6rRECBjzrrReNJ4XSdF)
 
-테스트 계정 (id: mini4614, pw: asd123)
+test user : (id: mini4614, pw: asd123)
 
 ## Preview
 
