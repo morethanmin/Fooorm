@@ -1,6 +1,7 @@
 # fooorm
 
 > google forms와 유사한 설문지 유형의 서비스
+> 
 > Django를 공부하기 위해 만들었고, frontend는 별도의 상태관리 프레임워크를 사용하진 않았습니다.
 
 ## Live demo
